@@ -10,8 +10,17 @@ describe 'diamond', :type => :class do
 
     it { should contain_file('/etc/diamond/diamond.conf').with_content(/interval = 30/)}
     it { should contain_file('/etc/diamond/diamond.conf').with_content(/host = localhost/)}
+    it { should contain_file('/etc/diamond/diamond.conf').with_content(/diamond.handler.graphite.GraphiteHandler/)}
+    it { should_not contain_file('/etc/diamond/diamond.conf').with_content(/diamond.handler.librato.LibratoHandler/)}
 
     it { should contain_service('diamond').with_ensure('running').with_enable('true') }
+  end
+
+  context 'with librato settings' do
+    let(:params) { {'librato_user' => 'bob', 'librato_apikey' => 'jim'} }
+    it { should contain_file('/etc/diamond/diamond.conf').with_content(/diamond.handler.librato.LibratoHandler/)}
+    it { should contain_file('/etc/diamond/diamond.conf').with_content(/user = bob/)}
+    it { should contain_file('/etc/diamond/diamond.conf').with_content(/apikey = jim/)}
   end
 
   context 'with a version' do

@@ -18,11 +18,19 @@
 # [*host*]
 #   Where to find the graphite server
 #
+# [*librato_user*]
+#   How often should metrics be collected and sent to Graphite
+#
+# [*librato_apikey*]
+#   Where to find the graphite server
+#
 class diamond(
   $version = 'present',
   $enable = true,
   $start = true,
   $interval = 30,
+  $librato_user = false,
+  $librato_apikey = false,
   $host = 'localhost',
 ) {
   class{'diamond::install': } ->

@@ -15,9 +15,18 @@ For experimenting you're probably fine just with:
 This module currently exposes a few configurable options, for the
 Graphite host and polling interval. So you can also do:
 
-    class ('diamond':
+    class { 'diamond':
       host     => 'graphite.example.com',
       interval => 10
+    }
+
+Diamond supports a number of different handlers, for the moment this
+module supports only the Graphite and Librato handers. Pull request
+happily accepted to add others.
+
+    class { 'diamond':
+      librato_user   => 'bob',
+      librato_apikey => 'jim',
     }
 
 # Requirement
