@@ -19,10 +19,13 @@
 #   Where to find the graphite server
 #
 # [*librato_user*]
-#   How often should metrics be collected and sent to Graphite
+#   Your Librato username
 #
 # [*librato_apikey*]
-#   Where to find the graphite server
+#   Your Librato apikey
+#
+# [*riemann_host*]
+#   Where to find the riemann server
 #
 class diamond(
   $version = 'present',
@@ -32,6 +35,7 @@ class diamond(
   $librato_user = false,
   $librato_apikey = false,
   $graphite_host = false,
+  $riemann_host = false,
 ) {
   class{'diamond::install': } ->
   class{'diamond::config': } ~>

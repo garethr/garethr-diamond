@@ -12,6 +12,7 @@ describe 'diamond', :type => :class do
 
     it { should_not contain_file('/etc/diamond/diamond.conf').with_content(/diamond.handler.librato.LibratoHandler/)}
     it { should_not contain_file('/etc/diamond/diamond.conf').with_content(/diamond.handler.graphite.GraphiteHandler/)}
+    it { should_not contain_file('/etc/diamond/diamond.conf').with_content(/diamond.handler.riemann.RiemannHandler/)}
 
     it { should contain_service('diamond').with_ensure('running').with_enable('true') }
   end
@@ -21,6 +22,14 @@ describe 'diamond', :type => :class do
     it { should contain_file('/etc/diamond/diamond.conf').with_content(/host = graphite.example.com/)}
     it { should contain_file('/etc/diamond/diamond.conf').with_content(/diamond.handler.graphite.GraphiteHandler/)}
     it { should_not contain_file('/etc/diamond/diamond.conf').with_content(/diamond.handler.librato.LibratoHandler/)}
+  end
+
+  context 'with a riemann host' do
+    let(:params) { {'riemann_host' => 'riemann.example.com'} }
+    it { should contain_file('/etc/diamond/diamond.conf').with_content(/host = riemann.example.com/)}
+    it { should contain_file('/etc/diamond/diamond.conf').with_content(/diamond.handler.riemann.RiemannHandler/)}
+    it { should_not contain_file('/etc/diamond/diamond.conf').with_content(/diamond.handler.librato.LibratoHandler/)}
+    it { should_not contain_file('/etc/diamond/diamond.conf').with_content(/diamond.handler.graphite.GraphiteHandler/)}
   end
 
   context 'with librato settings' do

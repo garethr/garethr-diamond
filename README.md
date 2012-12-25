@@ -20,16 +20,33 @@ the Graphite host and polling interval. So you can also do:
 
     class { 'diamond':
       graphite_host => 'graphite.example.com',
-      interval      => 10
+      interval      => 10,
     }
 
 Diamond supports a number of different handlers, for the moment this
-module supports only the Graphite and Librato handers. Pull request
+module supports only the Graphite, Librato and Riemann handers. Pull request
 happily accepted to add others.
+
+With Librato:
 
     class { 'diamond':
       librato_user   => 'bob',
       librato_apikey => 'jim',
+    }
+
+With Riemann:
+
+    class { 'diamond':
+      riemann_host => 'riemann.example.com',
+    }
+
+Note that you can include more than one of these at once.
+
+    class { 'diamond':
+      librato_user   => 'bob',
+      librato_apikey => 'jim',
+      riemann_host   => 'riemann.example.com',
+      graphite_host  => 'graphite.example.com',
     }
 
 # Requirement
@@ -40,4 +57,16 @@ packages. So this module makes use of my own personal debian package
 repository. This is installed with the
 [garethr](https://github.com/garethr/garethr-garethr) module which is
 marked as a dependency in the Modulefile.
+
+The Riemann and Librato handlers require some additional Python
+libraries not currently installed by this module.
+
+    Package {[
+      'simplejson',
+      'requests',
+      'bernhard',
+    ]:
+      ensure   => installed,
+      provider => pip,
+    }
 
