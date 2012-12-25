@@ -61,7 +61,7 @@ marked as a dependency in the Modulefile.
 The Riemann and Librato handlers require some additional Python
 libraries not currently installed by this module.
 
-    Package {[
+    package {[
       'simplejson',
       'requests',
       'bernhard',
