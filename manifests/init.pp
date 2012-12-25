@@ -15,7 +15,7 @@
 # [*interval*]
 #   How often should metrics be collected and sent to Graphite
 #
-# [*host*]
+# [*graphite_host*]
 #   Where to find the graphite server
 #
 # [*librato_user*]
@@ -31,7 +31,7 @@ class diamond(
   $interval = 30,
   $librato_user = false,
   $librato_apikey = false,
-  $host = 'localhost',
+  $graphite_host = false,
 ) {
   class{'diamond::install': } ->
   class{'diamond::config': } ~>

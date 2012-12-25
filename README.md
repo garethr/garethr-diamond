@@ -10,14 +10,17 @@ For experimenting you're probably fine just with:
 
     include diamond
 
+This installs diamond but doesn't ship the metrics anywhere, it just
+runs the archive handler.
+
 ## Configuration
 
-This module currently exposes a few configurable options, for the
-Graphite host and polling interval. So you can also do:
+This module currently exposes a few configurable options, for example 
+the Graphite host and polling interval. So you can also do:
 
     class { 'diamond':
-      host     => 'graphite.example.com',
-      interval => 10
+      graphite_host => 'graphite.example.com',
+      interval      => 10
     }
 
 Diamond supports a number of different handlers, for the moment this
