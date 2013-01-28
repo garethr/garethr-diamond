@@ -1,5 +1,5 @@
 name          'garethr-diamond'
-version       '0.1.0'
+version       '0.1.1'
 author        'garethr'
 license       'Apache License, Version 2.0'
 summary       'Module to manage the Diamond stats collection tool'
