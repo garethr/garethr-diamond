@@ -49,14 +49,14 @@ Note that you can include more than one of these at once.
       graphite_host  => 'graphite.example.com',
     }
 
-# Requirement
+# Optional requirements
 
 Diamond appears not to have a canonical package repository I could find
 or a PPA or similar. PyPi has a record but not source or binary
-packages. So this module makes use of my own personal debian package
+packages. So this module can make use of my own personal debian package
 repository. This is installed with the
-[garethr](https://github.com/garethr/garethr-garethr) module which is
-marked as a dependency in the Modulefile.
+[garethr](https://github.com/garethr/garethr-garethr) module if needed.
+Alernatively host your own package repository.
 
 The Riemann and Librato handlers require some additional Python
 libraries not currently installed by this module.
