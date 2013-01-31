@@ -1,5 +1,3 @@
 fixtures:
-  repositories:
-    garethr: git://github.com/garethr/garethr-garethr.git
   symlinks:
     diamond: "#{source_dir}"
