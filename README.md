@@ -23,6 +23,14 @@ the Graphite host and polling interval. So you can also do:
       interval      => 10,
     }
 
+You can also add additional collectors:
+
+    diamond::collector { 'RedisCollector':
+      options => {
+        'instances' => 'main@localhost:6379, other@localhost:6380'
+      }
+    }
+
 Diamond supports a number of different handlers, for the moment this
 module supports only the Graphite, Librato and Riemann handers. Pull request
 happily accepted to add others.
