@@ -7,7 +7,7 @@
 [server]
 
 # Handlers for published metrics.
-handlers = diamon.handler.archive.ArchiveHandler<% if graphite_host %>, diamond.handler.graphite.GraphiteHandler<% end %><% if librato_user && librato_apikey %>, diamond.handler.librato.LibratoHandler<% end %><% if riemann_host %>, diamond.handler.riemann.RiemannHandler<% end %>
+handlers = diamond.handler.archive.ArchiveHandler<% if @graphite_host %>, diamond.handler.graphite.GraphiteHandler<% end %><% if @librato_user && librato_apikey %>, diamond.handler.librato.LibratoHandler<% end %><% if @riemann_host %>, diamond.handler.riemann.RiemannHandler<% end %>
 
 # User diamond will run as
 # Leave empty to use the current user
@@ -54,7 +54,7 @@ days = 7
 ### Options for GraphiteHandler
 
 # Graphite server host
-host = <%= graphite_host %>
+host = <%= @graphite_host %>
 
 # Port to send metrics to
 port = 2003
@@ -69,7 +69,7 @@ batch = 1
 ### Options for GraphitePickleHandler
 
 # Graphite server host
-host = <%= graphite_host %>
+host = <%= @graphite_host %>
 
 # Port to send metrics to
 port = 2004
@@ -107,11 +107,11 @@ port = 4242
 timeout = 15
 
 [[LibratoHandler]]
-user = <%= librato_user %>
-apikey = <%= librato_apikey %>
+user = <%= @librato_user %>
+apikey = <%= @librato_apikey %>
 
 [[RiemannHandler]]
-host = <%= riemann_host %>
+host = <%= @riemann_host %>
 port = 5555
 transport = tcp
 
@@ -148,10 +148,16 @@ transport = tcp
 # you can use one or both to craft the path where you want to put metrics
 # such as: %(path_prefix)s.$(hostname)s.$(path_suffix)s.$(metric)s
 # path_prefix = servers
+<% if @path_prefix -%>
+path_prefix = <%= @path_prefix %>
+<% end -%>
 # path_suffix =
+<% if @path_suffix -%>
+path_suffix = <%= @path_suffix %>
+<% end -%>
 
 # Default Poll Interval (seconds)
-interval = <%= interval %>
+interval = <%= @interval %>
 
 ################################################################################
 ### Options for logging

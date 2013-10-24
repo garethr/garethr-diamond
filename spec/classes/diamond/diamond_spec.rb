@@ -13,6 +13,8 @@ describe 'diamond', :type => :class do
     it { should_not contain_file('/etc/diamond/diamond.conf').with_content(/diamond.handler.librato.LibratoHandler/)}
     it { should_not contain_file('/etc/diamond/diamond.conf').with_content(/diamond.handler.graphite.GraphiteHandler/)}
     it { should_not contain_file('/etc/diamond/diamond.conf').with_content(/diamond.handler.riemann.RiemannHandler/)}
+    it { should_not contain_file('/etc/diamond/diamond.conf').with_content(/^\s*path_prefix =/)}
+    it { should_not contain_file('/etc/diamond/diamond.conf').with_content(/^\s*path_suffix =/)}
 
     it { should contain_service('diamond').with_ensure('running').with_enable('true') }
   end
@@ -64,4 +66,13 @@ describe 'diamond', :type => :class do
     it { should contain_service('diamond').with_ensure('stopped').with_enable('false') }
   end
 
+  context 'with a path_prefix' do
+    let(:params) { {'path_prefix' => 'undefined'} }
+    it { should contain_file('/etc/diamond/diamond.conf').with_content(/^\s*path_prefix = undefined$/)}
+  end
+
+  context 'with a path_suffix' do
+    let(:params) { {'path_suffix' => 'undefined'} }
+    it { should contain_file('/etc/diamond/diamond.conf').with_content(/^\s*path_suffix = undefined$/)}
+  end
 end
