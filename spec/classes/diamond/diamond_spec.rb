@@ -26,6 +26,13 @@ describe 'diamond', :type => :class do
     it { should_not contain_file('/etc/diamond/diamond.conf').with_content(/diamond.handler.librato.LibratoHandler/)}
   end
 
+  context 'with a custom graphite host and handler' do
+    let(:params) { {'graphite_host' => 'graphite.example.com', 'graphite_handler' => 'graphitepickle.GraphitePickleHandler'} }
+    it { should contain_file('/etc/diamond/diamond.conf').with_content(/host = graphite.example.com/)}
+    it { should contain_file('/etc/diamond/diamond.conf').with_content(/diamond.handler.graphitepickle.GraphitePickleHandler/)}
+    it { should_not contain_file('/etc/diamond/diamond.conf').with_content(/diamond.handler.librato.LibratoHandler/)}
+  end
+
   context 'with a riemann host' do
     let(:params) { {'riemann_host' => 'riemann.example.com'} }
     it { should contain_file('/etc/diamond/diamond.conf').with_content(/host = riemann.example.com/)}

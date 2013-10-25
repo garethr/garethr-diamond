@@ -1,3 +1,15 @@
+<%-
+handlers = ['diamond.handler.archive.ArchiveHandler',]
+if @graphite_host then
+  handlers << "diamond.handler.#{@graphite_handler}"
+end
+if @librato_user and @librato_apikey then
+  handlers << 'diamond.handler.librato.LibratoHandler'
+end
+if @riemann_host then
+  handlers << 'diamond.handler.riemann.RiemannHandler'
+end
+-%>
 ################################################################################
 # Diamond Configuration File
 ################################################################################
@@ -7,7 +19,7 @@
 [server]
 
 # Handlers for published metrics.
-handlers = diamond.handler.archive.ArchiveHandler<% if @graphite_host %>, diamond.handler.graphite.GraphiteHandler<% end %><% if @librato_user && librato_apikey %>, diamond.handler.librato.LibratoHandler<% end %><% if @riemann_host %>, diamond.handler.riemann.RiemannHandler<% end %>
+handlers = <%= Array(handlers).join(',') %>
 
 # User diamond will run as
 # Leave empty to use the current user

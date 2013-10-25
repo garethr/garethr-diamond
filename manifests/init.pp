@@ -18,6 +18,9 @@
 # [*graphite_host*]
 #   Where to find the graphite server
 #
+# [*graphite_handler*]
+#   Which handler to use to talk with graphite server
+#
 # [*librato_user*]
 #   Your Librato username
 #
@@ -34,16 +37,17 @@
 #   Define optional path_suffix for storing metrics
 #
 class diamond(
-  $version        = 'present',
-  $enable         = true,
-  $start          = true,
-  $interval       = 30,
-  $librato_user   = false,
-  $librato_apikey = false,
-  $graphite_host  = false,
-  $riemann_host   = false,
-  $path_prefix    = undef,
-  $path_suffix    = undef,
+  $version          = 'present',
+  $enable           = true,
+  $start            = true,
+  $interval         = 30,
+  $librato_user     = false,
+  $librato_apikey   = false,
+  $graphite_host    = false,
+  $graphite_handler = 'graphite.GraphiteHandler',
+  $riemann_host     = false,
+  $path_prefix      = undef,
+  $path_suffix      = undef,
 ) {
   class{'diamond::install': } ->
   class{'diamond::config': } ~>
