@@ -1,5 +1,6 @@
 <%-
-handlers = ['diamond.handler.archive.ArchiveHandler',]
+handlers = @extra_handlers
+handlers << 'diamond.handler.archive.ArchiveHandler'
 if @graphite_host then
   handlers << "diamond.handler.#{@graphite_handler}"
 end
@@ -110,8 +111,8 @@ col_metric  = metric
 col_value   = value
 
 [[StatsdHandler]]
-host = 127.0.0.1
-port = 8125
+host = <%= @stats_host %>
+port = <%= @stats_port %>
 
 [[TSDBHandler]]
 host = 127.0.0.1

@@ -68,6 +68,11 @@ describe 'diamond', :type => :class do
     it { should contain_file('/etc/diamond/diamond.conf').with_content(/interval = 10/)}
   end
 
+  context 'with a extra handlers' do
+    let(:params) { {'extra_handlers' => ['diamond.handler.stats_d.StatsdHandler',]} }
+    it { should contain_file('/etc/diamond/diamond.conf').with_content(/diamond.handler.stats_d.StatsdHandler/)}
+  end
+
   context 'with service instructions' do
     let(:params) { {'start' => false, 'enable' => false} }
     it { should contain_service('diamond').with_ensure('stopped').with_enable('false') }
