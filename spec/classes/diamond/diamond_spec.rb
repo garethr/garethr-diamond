@@ -33,6 +33,14 @@ describe 'diamond', :type => :class do
     it { should_not contain_file('/etc/diamond/diamond.conf').with_content(/diamond.handler.librato.LibratoHandler/)}
   end
 
+  context 'with a custom graphite port and graphite pickle port' do
+    let(:params) { {'graphite_port' => '2013', 'pickle_port' => '2014'} }
+    it { should contain_file('/etc/diamond/diamond.conf').with_content(/port = 2013/)}
+    it { should contain_file('/etc/diamond/diamond.conf').with_content(/port = 2014/)}
+    it { should_not contain_file('/etc/diamond/diamond.conf').with_content(/port = 2003/)}
+    it { should_not contain_file('/etc/diamond/diamond.conf').with_content(/port = 2004/)}
+  end
+
   context 'with a riemann host' do
     let(:params) { {'riemann_host' => 'riemann.example.com'} }
     it { should contain_file('/etc/diamond/diamond.conf').with_content(/host = riemann.example.com/)}

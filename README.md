@@ -20,6 +20,7 @@ the Graphite host and polling interval. So you can also do:
 
     class { 'diamond':
       graphite_host => 'graphite.example.com',
+      graphite_port => 2013,
       interval      => 10,
     }
 

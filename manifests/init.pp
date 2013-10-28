@@ -54,6 +54,8 @@ class diamond(
   $librato_apikey   = false,
   $graphite_host    = false,
   $graphite_handler = 'graphite.GraphiteHandler',
+  $graphite_port    = '2003',
+  $pickle_port      = '2004',
   $riemann_host     = false,
   $stats_host       = '127.0.0.1',
   $stats_port       = 8125,
