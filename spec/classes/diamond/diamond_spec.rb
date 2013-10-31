@@ -41,6 +41,13 @@ describe 'diamond', :type => :class do
     it { should_not contain_file('/etc/diamond/diamond.conf').with_content(/port = 2004/)}
   end
 
+  context 'with a custom logger_level and rotate_level of logging' do
+    let(:params) { {'logger_level' => 'DEBUG', 'rotate_level' => 'INFO'} }
+    it { should contain_file('/etc/diamond/diamond.conf').with_content(/level = DEBUG/)}
+    it { should contain_file('/etc/diamond/diamond.conf').with_content(/level = INFO/)}
+    it { should_not contain_file('/etc/diamond/diamond.conf').with_content(/level = WARNING/)}
+  end
+
   context 'with a riemann host' do
     let(:params) { {'riemann_host' => 'riemann.example.com'} }
     it { should contain_file('/etc/diamond/diamond.conf').with_content(/host = riemann.example.com/)}
