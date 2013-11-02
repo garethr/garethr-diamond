@@ -1,6 +1,5 @@
 <%-
 handlers = @extra_handlers
-handlers << 'diamond.handler.archive.ArchiveHandler'
 if @graphite_host then
   handlers << "diamond.handler.#{@graphite_handler}"
 end
@@ -192,14 +191,14 @@ keys = default
 [logger_root]
 
 # to increase verbosity, set DEBUG
-level = INFO
+level = <%= @logger_level %>
 handlers = rotated_file
 propagate = 1
 
 [handler_rotated_file]
 
 class = handlers.TimedRotatingFileHandler
-level = DEBUG
+level = <%= @rotate_level %>
 formatter = default
 # rotate at midnight, each day and keep 7 days
 args = ('/var/log/diamond/diamond.log', 'midnight', 1, 7)

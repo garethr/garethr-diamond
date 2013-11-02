@@ -61,6 +61,8 @@ class diamond(
   $stats_port       = 8125,
   $path_prefix      = undef,
   $path_suffix      = undef,
+  $logger_level     = 'WARNING',
+  $rotate_level     = 'WARNING', 
   $extra_handlers   = [],
 ) {
   class{'diamond::install': } ->
