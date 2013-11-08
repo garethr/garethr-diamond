@@ -1,5 +1,5 @@
 define diamond::collector (
-  $options
+  $options = undef
 ) {
 
   file {"/etc/diamond/collectors/${name}.conf":
