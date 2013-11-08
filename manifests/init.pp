@@ -62,7 +62,7 @@ class diamond(
   $path_prefix      = undef,
   $path_suffix      = undef,
   $logger_level     = 'WARNING',
-  $rotate_level     = 'WARNING', 
+  $rotate_level     = 'WARNING',
   $extra_handlers   = [],
 ) {
   class{'diamond::install': } ->
