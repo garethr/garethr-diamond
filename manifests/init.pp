@@ -45,6 +45,8 @@
 # [*path_suffix*]
 #   Define optional path_suffix for storing metrics
 #
+# [*handlers_path*]
+#   Define optional handlers_path for custom handlers
 class diamond(
   $version          = 'present',
   $enable           = true,
@@ -64,6 +66,7 @@ class diamond(
   $logger_level     = 'WARNING',
   $rotate_level     = 'WARNING',
   $extra_handlers   = [],
+  $handlers_path    = undef,
 ) {
   class{'diamond::install': } ->
   class{'diamond::config': } ~>

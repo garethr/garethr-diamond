@@ -15,6 +15,7 @@ describe 'diamond', :type => :class do
     it { should_not contain_file('/etc/diamond/diamond.conf').with_content(/diamond.handler.riemann.RiemannHandler/)}
     it { should_not contain_file('/etc/diamond/diamond.conf').with_content(/^\s*path_prefix =/)}
     it { should_not contain_file('/etc/diamond/diamond.conf').with_content(/^\s*path_suffix =/)}
+    it { should_not contain_file('/etc/diamond/diamond.conf').with_content(/^handlers_path =/)}
 
     it { should contain_service('diamond').with_ensure('running').with_enable('true') }
   end
@@ -102,4 +103,10 @@ describe 'diamond', :type => :class do
     let(:params) { {'path_suffix' => 'undefined'} }
     it { should contain_file('/etc/diamond/diamond.conf').with_content(/^\s*path_suffix = undefined$/)}
   end
+
+  context 'with a handlers_path' do
+    let(:params) { {'handlers_path' => '/opt/diamond/handlers'} }
+    it { should contain_file('/etc/diamond/diamond.conf').with_content(/handlers_path = \/opt\/diamond\/handlers/)}
+  end
+
 end
