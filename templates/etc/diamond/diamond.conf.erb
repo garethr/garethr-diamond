@@ -38,6 +38,10 @@ collectors_path = /usr/share/diamond/collectors/
 # Directory to load collector configs from
 collectors_config_path = /etc/diamond/collectors/
 
+<% if @handlers_path -%>
+handlers_path = <%= @handlers_path %>
+<% end -%>
+
 # Directory to load handler configs from
 handlers_config_path = /etc/diamond/handlers/
 
