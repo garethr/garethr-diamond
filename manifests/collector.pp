@@ -1,3 +1,11 @@
+# == Define: diamond::collector
+#
+# A puppet wrapper for the collector files
+#
+# === Parameters
+# [*options*]
+#   Options for use the the collector template
+#
 define diamond::collector (
   $options = undef
 ) {

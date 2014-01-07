@@ -1,3 +1,7 @@
+# == Class: diamond::config
+#
+# The configuration of the Diamond daemon
+#
 class diamond::config {
   $interval         = $diamond::interval
   $graphite_host    = $diamond::graphite_host
