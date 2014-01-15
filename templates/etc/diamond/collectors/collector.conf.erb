@@ -1,6 +1,7 @@
 enabled=True
 <% if defined?(@options) -%>
-  <% @options.each do |k,v| -%>
-    <%= "#{k}=#{v}" %>
+  <% @options.keys.sort.each do |k| -%>
+    <%= "#{k}=#{@options[k]}" %>
   <% end -%>
 <% end -%>
+
