@@ -10,7 +10,7 @@ describe 'diamond', :type => :class do
 
     it { should contain_file('/etc/diamond/diamond.conf').with_content(/interval = 30/)}
 
-    it { should_not contain_file('/etc/diamond/diamond.conf').with_content(/diamond.handler.librato.LibratoHandler/)}
+    it { should_not contain_file('/etc/diamond/diamond.conf').with_content(/diamond.handler.libratohandler.LibratoHandler/)}
     it { should_not contain_file('/etc/diamond/diamond.conf').with_content(/diamond.handler.graphite.GraphiteHandler/)}
     it { should_not contain_file('/etc/diamond/diamond.conf').with_content(/diamond.handler.riemann.RiemannHandler/)}
     it { should_not contain_file('/etc/diamond/diamond.conf').with_content(/^\s*path_prefix =/)}
@@ -24,14 +24,14 @@ describe 'diamond', :type => :class do
     let(:params) { {'graphite_host' => 'graphite.example.com'} }
     it { should contain_file('/etc/diamond/diamond.conf').with_content(/host = graphite.example.com/)}
     it { should contain_file('/etc/diamond/diamond.conf').with_content(/diamond.handler.graphite.GraphiteHandler/)}
-    it { should_not contain_file('/etc/diamond/diamond.conf').with_content(/diamond.handler.librato.LibratoHandler/)}
+    it { should_not contain_file('/etc/diamond/diamond.conf').with_content(/diamond.handler.libratohandler.LibratoHandler/)}
   end
 
   context 'with a custom graphite host and handler' do
     let(:params) { {'graphite_host' => 'graphite.example.com', 'graphite_handler' => 'graphitepickle.GraphitePickleHandler'} }
     it { should contain_file('/etc/diamond/diamond.conf').with_content(/host = graphite.example.com/)}
     it { should contain_file('/etc/diamond/diamond.conf').with_content(/diamond.handler.graphitepickle.GraphitePickleHandler/)}
-    it { should_not contain_file('/etc/diamond/diamond.conf').with_content(/diamond.handler.librato.LibratoHandler/)}
+    it { should_not contain_file('/etc/diamond/diamond.conf').with_content(/diamond.handler.libratohandler.LibratoHandler/)}
   end
 
   context 'with a custom graphite port and graphite pickle port' do
@@ -53,13 +53,13 @@ describe 'diamond', :type => :class do
     let(:params) { {'riemann_host' => 'riemann.example.com'} }
     it { should contain_file('/etc/diamond/diamond.conf').with_content(/host = riemann.example.com/)}
     it { should contain_file('/etc/diamond/diamond.conf').with_content(/diamond.handler.riemann.RiemannHandler/)}
-    it { should_not contain_file('/etc/diamond/diamond.conf').with_content(/diamond.handler.librato.LibratoHandler/)}
+    it { should_not contain_file('/etc/diamond/diamond.conf').with_content(/diamond.handler.libratohandler.LibratoHandler/)}
     it { should_not contain_file('/etc/diamond/diamond.conf').with_content(/diamond.handler.graphite.GraphiteHandler/)}
   end
 
   context 'with librato settings' do
     let(:params) { {'librato_user' => 'bob', 'librato_apikey' => 'jim'} }
-    it { should contain_file('/etc/diamond/diamond.conf').with_content(/diamond.handler.librato.LibratoHandler/)}
+    it { should contain_file('/etc/diamond/diamond.conf').with_content(/diamond.handler.libratohandler.LibratoHandler/)}
     it { should contain_file('/etc/diamond/diamond.conf').with_content(/user = bob/)}
     it { should contain_file('/etc/diamond/diamond.conf').with_content(/apikey = jim/)}
     it { should_not contain_file('/etc/diamond/diamond.conf').with_content(/diamond.handler.graphite.GraphiteHandler/)}
@@ -67,7 +67,7 @@ describe 'diamond', :type => :class do
 
   context 'with librato and graphite settings' do
     let(:params) { {'graphite_host' => 'graphite.example.com', 'librato_user' => 'bob', 'librato_apikey' => 'jim'} }
-    it { should contain_file('/etc/diamond/diamond.conf').with_content(/diamond.handler.librato.LibratoHandler/)}
+    it { should contain_file('/etc/diamond/diamond.conf').with_content(/diamond.handler.libratohandler.LibratoHandler/)}
     it { should contain_file('/etc/diamond/diamond.conf').with_content(/user = bob/)}
     it { should contain_file('/etc/diamond/diamond.conf').with_content(/apikey = jim/)}
     it { should contain_file('/etc/diamond/diamond.conf').with_content(/host = graphite.example.com/)}

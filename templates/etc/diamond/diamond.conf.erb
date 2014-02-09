@@ -4,7 +4,7 @@ if @graphite_host then
   handlers << "diamond.handler.#{@graphite_handler}"
 end
 if @librato_user and @librato_apikey then
-  handlers << 'diamond.handler.librato.LibratoHandler'
+  handlers << 'diamond.handler.libratohandler.LibratoHandler'
 end
 if @riemann_host then
   handlers << 'diamond.handler.riemann.RiemannHandler'
