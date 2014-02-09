@@ -1,6 +1,7 @@
 # == Class: diamond::install
 #
-# Class to install Diamond from packages
+# Class to install Diamond from packages.
+# Also installed dependencies for collectors
 #
 class diamond::install {
   package { 'diamond':
