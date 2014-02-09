@@ -8,7 +8,9 @@ Status](https://secure.travis-ci.org/garethr/garethr-diamond.png)](http://travis
 
 For experimenting you're probably fine just with:
 
-    include diamond
+```puppet
+include diamond
+```
 
 This installs diamond but doesn't ship the metrics anywhere, it just
 runs the archive handler.
@@ -18,19 +20,23 @@ runs the archive handler.
 This module currently exposes a few configurable options, for example 
 the Graphite host and polling interval. So you can also do:
 
-    class { 'diamond':
-      graphite_host => 'graphite.example.com',
-      graphite_port => 2013,
-      interval      => 10,
-    }
+```puppet
+class { 'diamond':
+  graphite_host => 'graphite.example.com',
+  graphite_port => 2013,
+  interval      => 10,
+}
+```
 
 You can also add additional collectors:
 
-    diamond::collector { 'RedisCollector':
-      options => {
-        'instances' => 'main@localhost:6379, other@localhost:6380'
-      }
-    }
+```puppet
+diamond::collector { 'RedisCollector':
+  options => {
+    'instances' => 'main@localhost:6379, other@localhost:6380'
+  }
+}
+```
 
 Diamond supports a number of different handlers, for the moment this
 module supports only the Graphite, Librato and Riemann handers. Pull request
@@ -38,25 +44,31 @@ happily accepted to add others.
 
 With Librato:
 
-    class { 'diamond':
-      librato_user   => 'bob',
-      librato_apikey => 'jim',
-    }
+```puppet
+class { 'diamond':
+  librato_user   => 'bob',
+  librato_apikey => 'jim',
+}
+```
 
 With Riemann:
 
-    class { 'diamond':
-      riemann_host => 'riemann.example.com',
-    }
+```puppet
+class { 'diamond':
+  riemann_host => 'riemann.example.com',
+}
+```
 
 Note that you can include more than one of these at once.
 
-    class { 'diamond':
-      librato_user   => 'bob',
-      librato_apikey => 'jim',
-      riemann_host   => 'riemann.example.com',
-      graphite_host  => 'graphite.example.com',
-    }
+```puppet
+class { 'diamond':
+  librato_user   => 'bob',
+  librato_apikey => 'jim',
+  riemann_host   => 'riemann.example.com',
+  graphite_host  => 'graphite.example.com',
+}
+```
 
 # Optional requirements
 
@@ -70,18 +82,22 @@ Alernatively host your own package repository.
 The Riemann and Librato handlers require some additional Python
 libraries not currently installed by this module.
 
-    package {[
-      'simplejson',
-      'requests',
-      'bernhard',
-    ]:
-      ensure   => installed,
-      provider => pip,
-    }
+```puppet
+package {[
+  'simplejson',
+  'requests',
+  'bernhard',
+]:
+  ensure   => installed,
+  provider => pip,
+}
+```
 
 The Librato module request:
 
-    package {'librato-metrics':
-      ensure   => installed,
-      provider => pip,
-    }
+```puppet
+package {'librato-metrics':
+  ensure   => installed,
+  provider => pip,
+}
+```
