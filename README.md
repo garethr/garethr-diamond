@@ -79,3 +79,9 @@ libraries not currently installed by this module.
       provider => pip,
     }
 
+The Librato module request:
+
+    package {'librato-metrics':
+      ensure   => installed,
+      provider => pip,
+    }
