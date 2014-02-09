@@ -78,26 +78,3 @@ packages. So this module can make use of my own personal debian package
 repository. This is installed with the
 [garethr](https://github.com/garethr/garethr-garethr) module if needed.
 Alernatively host your own package repository.
-
-The Riemann and Librato handlers require some additional Python
-libraries not currently installed by this module.
-
-```puppet
-package {[
-  'simplejson',
-  'requests',
-  'bernhard',
-]:
-  ensure   => installed,
-  provider => pip,
-}
-```
-
-The Librato module request:
-
-```puppet
-package {'librato-metrics':
-  ensure   => installed,
-  provider => pip,
-}
-```

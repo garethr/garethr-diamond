@@ -10,6 +10,10 @@ describe 'diamond', :type => :class do
 
     it { should contain_file('/etc/diamond/diamond.conf').with_content(/interval = 30/)}
 
+
+    it { should_not contain_package('python-pip')}
+    it { should_not contain_package('librato-metrics')}
+
     it { should_not contain_file('/etc/diamond/diamond.conf').with_content(/diamond.handler.libratohandler.LibratoHandler/)}
     it { should_not contain_file('/etc/diamond/diamond.conf').with_content(/diamond.handler.graphite.GraphiteHandler/)}
     it { should_not contain_file('/etc/diamond/diamond.conf').with_content(/diamond.handler.riemann.RiemannHandler/)}
@@ -51,6 +55,8 @@ describe 'diamond', :type => :class do
 
   context 'with a riemann host' do
     let(:params) { {'riemann_host' => 'riemann.example.com'} }
+    it { should contain_package('python-pip')}
+    it { should contain_package('bernhard').that_comes_before('Package[python-pip]')}
     it { should contain_file('/etc/diamond/diamond.conf').with_content(/host = riemann.example.com/)}
     it { should contain_file('/etc/diamond/diamond.conf').with_content(/diamond.handler.riemann.RiemannHandler/)}
     it { should_not contain_file('/etc/diamond/diamond.conf').with_content(/diamond.handler.libratohandler.LibratoHandler/)}
@@ -59,6 +65,8 @@ describe 'diamond', :type => :class do
 
   context 'with librato settings' do
     let(:params) { {'librato_user' => 'bob', 'librato_apikey' => 'jim'} }
+    it { should contain_package('python-pip')}
+    it { should contain_package('librato-metrics').that_comes_before('Package[python-pip]')}
     it { should contain_file('/etc/diamond/diamond.conf').with_content(/diamond.handler.libratohandler.LibratoHandler/)}
     it { should contain_file('/etc/diamond/diamond.conf').with_content(/user = bob/)}
     it { should contain_file('/etc/diamond/diamond.conf').with_content(/apikey = jim/)}
