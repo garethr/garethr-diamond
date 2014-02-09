@@ -15,7 +15,7 @@ class diamond::install {
     ensure_resource('package', 'librato-metrics', {'ensure' => 'present', 'provider' => pip, 'before' => Package['python-pip']})
   }
 
-  if $riemann_host {
+  if $diamond::riemann_host {
     ensure_packages(['python-pip'])
     ensure_resource('package', 'bernhard', {'ensure' => 'present', 'provider' => pip, 'before' => Package['python-pip']})
   }
