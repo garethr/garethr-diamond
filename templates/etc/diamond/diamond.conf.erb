@@ -175,6 +175,11 @@ path_suffix = <%= @path_suffix %>
 # Default Poll Interval (seconds)
 interval = <%= @interval %>
 
+# Hostname or method of collector
+<% if @hostname_method -%>
+hostname = <%= @hostname_method %>
+<% end -%>
+
 ################################################################################
 ### Options for logging
 # for more information on file format syntax:
