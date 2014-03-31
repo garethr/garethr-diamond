@@ -177,9 +177,12 @@ interval = <%= @interval %>
 
 # Hostname or method of collector
 <% if @hostname_method -%>
-hostname = <%= @hostname_method %>
+hostname_method = <%= @hostname_method %>
 <% end -%>
 
+<% if not @hostname_method and @target_hostname -%>
+hostname = <%= @target_hostname %>
+<% end -%>
 ################################################################################
 ### Options for logging
 # for more information on file format syntax:

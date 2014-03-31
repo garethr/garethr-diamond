@@ -117,4 +117,15 @@ describe 'diamond', :type => :class do
     it { should contain_file('/etc/diamond/diamond.conf').with_content(/handlers_path = \/opt\/diamond\/handlers/)}
   end
 
+  context 'with a hostname_method' do
+    let(:params) { {'hostname_method' => 'hostname_short', 'target_hostname' => 'bob.example.com'} }
+    it { should contain_file('/etc/diamond/diamond.conf').with_content(/hostname_method = hostname_short/)}
+    it { should_not contain_file('/etc/diamond/diamond.conf').with_content(/hostname = bob.example.com/)}
+  end
+
+  context 'with a target_hostname' do
+    let(:params) { {'target_hostname' => 'bob.example.com'}  }
+    it { should contain_file('/etc/diamond/diamond.conf').with_content(/hostname = bob.example.com/)}
+  end
+
 end
