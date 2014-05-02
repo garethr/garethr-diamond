@@ -9,7 +9,13 @@ describe 'diamond', :type => :class do
     it { should create_class('diamond::service')}
 
     it { should contain_file('/etc/diamond/diamond.conf').with_content(/interval = 30/)}
-
+    it do
+      should contain_file('/etc/diamond/collectors').with({
+          'ensure'  =>  'directory',
+          'purge'   =>  'true',
+          'recurse' =>  'true',
+      })
+    end
 
     it { should_not contain_package('python-pip')}
     it { should_not contain_package('librato-metrics')}
