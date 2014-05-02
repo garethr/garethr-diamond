@@ -12,6 +12,13 @@ class diamond::config {
   $path_prefix      = $diamond::path_prefix
   $path_suffix      = $diamond::path_suffix
   $handlers_path    = $diamond::handlers_path
+
+  file { '/etc/diamond/collectors':
+    ensure  => directory,
+    purge   => true,
+    recurse =>  true,
+  }
+
   file { '/etc/diamond/diamond.conf':
     ensure  => present,
     content => template('diamond/etc/diamond/diamond.conf.erb'),

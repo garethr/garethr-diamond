@@ -6,6 +6,12 @@
 # [*version*]
 #   The package version to install
 #
+# [*hostname_method*]
+#   The hostname or method for the metric key
+#
+# [*target_hostname*]
+#   The static hostname to use instead of using the hostname_method
+#
 # [*enable*]
 #   Should the service be enabled during boot time?
 #
@@ -49,6 +55,8 @@
 #   Define optional handlers_path for custom handlers
 class diamond(
   $version          = 'present',
+  $hostname_method  = undef,
+  $target_hostname  = undef,
   $enable           = true,
   $start            = true,
   $interval         = 30,

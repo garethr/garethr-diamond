@@ -9,7 +9,13 @@ describe 'diamond', :type => :class do
     it { should create_class('diamond::service')}
 
     it { should contain_file('/etc/diamond/diamond.conf').with_content(/interval = 30/)}
-
+    it do
+      should contain_file('/etc/diamond/collectors').with({
+          'ensure'  =>  'directory',
+          'purge'   =>  'true',
+          'recurse' =>  'true',
+      })
+    end
 
     it { should_not contain_package('python-pip')}
     it { should_not contain_package('librato-metrics')}
@@ -115,6 +121,17 @@ describe 'diamond', :type => :class do
   context 'with a handlers_path' do
     let(:params) { {'handlers_path' => '/opt/diamond/handlers'} }
     it { should contain_file('/etc/diamond/diamond.conf').with_content(/handlers_path = \/opt\/diamond\/handlers/)}
+  end
+
+  context 'with a hostname_method' do
+    let(:params) { {'hostname_method' => 'hostname_short', 'target_hostname' => 'bob.example.com'} }
+    it { should contain_file('/etc/diamond/diamond.conf').with_content(/hostname_method = hostname_short/)}
+    it { should_not contain_file('/etc/diamond/diamond.conf').with_content(/hostname = bob.example.com/)}
+  end
+
+  context 'with a target_hostname' do
+    let(:params) { {'target_hostname' => 'bob.example.com'}  }
+    it { should contain_file('/etc/diamond/diamond.conf').with_content(/hostname = bob.example.com/)}
   end
 
 end
