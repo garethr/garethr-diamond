@@ -38,6 +38,42 @@ diamond::collector { 'RedisCollector':
 }
 ```
 
+Some collectors support multiple sections, for example the NetApp and RabbitMQ collectors
+
+```puppet
+diamond::collector { 'NetAppCollector':
+  options => {
+    'path_prefix' => '/opt/netapp/lib/python'
+  },
+  sections => {
+    '[devices]' => {},
+    '[[host01]]' => {
+         'ip' => '10.10.10.1',
+         'username' => 'bob',
+         'password' => 'alice'
+    },
+    '[[host02]]' => {
+         'ip' => '10.10.10.2',
+         'username' => 'alice',
+         'password' => 'bob'
+    }
+  }
+}
+
+diamond::collector { 'RabbitMQCollector':
+  options => {
+    'host' => '10.10.10.1',
+    'user' => 'bob',
+    'password' => 'alice'
+  },
+  sections => {
+    '[vhosts]' => {
+      '*' => '*'
+    }
+  }
+}
+```
+
 Diamond supports a number of different handlers, for the moment this
 module supports only the Graphite, Librato and Riemann handers. Pull request
 happily accepted to add others.

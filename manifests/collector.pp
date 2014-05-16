@@ -6,8 +6,12 @@
 # [*options*]
 #   Options for use the the collector template
 #
+# [*sections*]
+#   Some collectors have multiple sections, for example the netapp and rabbitmq collectors
+#   Each section can have its own options
 define diamond::collector (
-  $options = undef
+  $options = undef,
+  $sections = undef
 ) {
   include diamond
 
