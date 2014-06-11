@@ -10,6 +10,11 @@ class diamond::install {
   file { '/var/run/diamond':
     ensure => directory,
   }
+  file { '/etc/diamond/collectors':
+    ensure  => directory,
+    purge   => true,
+    recurse => true,
+  }
 
   if $diamond::librato_user and $diamond::librato_apikey {
     ensure_packages(['python-pip'])
