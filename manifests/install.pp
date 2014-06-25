@@ -10,10 +10,16 @@ class diamond::install {
   file { '/var/run/diamond':
     ensure => directory,
   }
+  
+  file { '/etc/diamond':
+    ensure  => directory,
+  }
+  
   file { '/etc/diamond/collectors':
     ensure  => directory,
     purge   => true,
     recurse => true,
+    require => File['/etc/diamond'],
   }
 
   if $diamond::librato_user and $diamond::librato_apikey {
