@@ -10,18 +10,18 @@ class diamond::install {
   file { '/var/run/diamond':
     ensure => directory,
   }
-  
+
   file { '/etc/diamond':
     ensure  => directory,
     owner   => root,
     group   => root,
   }
-  
+
   file { '/etc/diamond/collectors':
     ensure  => directory,
     owner   => root,
     group   => root,
-    purge   => true,
+    purge   => $diamond::purge,
     recurse => true,
     require => File['/etc/diamond'],
   }
