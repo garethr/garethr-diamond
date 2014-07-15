@@ -21,7 +21,7 @@ class diamond::install {
     ensure  => directory,
     owner   => root,
     group   => root,
-    purge   => $diamond::purge,
+    purge   => $diamond::purge_collectors,
     recurse => true,
     require => File['/etc/diamond'],
   }
