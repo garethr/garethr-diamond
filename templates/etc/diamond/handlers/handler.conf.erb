@@ -1,14 +1,15 @@
 <% if defined?(@options)
      @options.keys.sort.each do |k| -%>
 <%= "#{k} = #{@options[k]}" %>
-<%   end -%>
-<% end -%>
+<%   end
+   end -%>
 <% if defined?(@sections)
      @sections.keys.each do |k| -%>
 
 <%= "#{k}" %>
 <%     @sections[k].keys.sort.each do |v| -%>
 <%= "#{v} = #{@sections[k][v]}" %>
-<%     end -%>
-<%   end -%>
-<% end -%>
+<%     end
+     end
+   end -%>
+
