@@ -10,6 +10,7 @@ describe 'diamond', :type => :class do
 
     it { should contain_file('/etc/diamond/diamond.conf').with_content(/interval = 30/)}
 
+    it { should contain_file('/etc/diamond/collectors').with('purge' => 'false')}
 
     it { should_not contain_package('python-pip')}
     it { should_not contain_package('librato-metrics')}
@@ -115,6 +116,16 @@ describe 'diamond', :type => :class do
   context 'with a handlers_path' do
     let(:params) { {'handlers_path' => '/opt/diamond/handlers'} }
     it { should contain_file('/etc/diamond/diamond.conf').with_content(/handlers_path = \/opt\/diamond\/handlers/)}
+  end
+
+  context 'with purging collectors' do
+    let (:params) { {'purge_collectors' => true} }
+    it { should contain_file('/etc/diamond/collectors').with('purge' => 'true')}
+  end
+
+  context 'with not purging collectors' do
+    let (:params) { {'purge_collectors' => false} }
+    it { should contain_file('/etc/diamond/collectors').with('purge' => 'false')}
   end
 
 end

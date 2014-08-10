@@ -11,6 +11,21 @@ class diamond::install {
     ensure => directory,
   }
 
+  file { '/etc/diamond':
+    ensure  => directory,
+    owner   => root,
+    group   => root,
+  }
+
+  file { '/etc/diamond/collectors':
+    ensure  => directory,
+    owner   => root,
+    group   => root,
+    purge   => $diamond::purge_collectors,
+    recurse => true,
+    require => File['/etc/diamond'],
+  }
+
   if $diamond::librato_user and $diamond::librato_apikey {
     ensure_packages(['python-pip'])
     ensure_resource('package', 'librato-metrics', {'ensure' => 'present', 'provider' => pip, 'before' => Package['python-pip']})

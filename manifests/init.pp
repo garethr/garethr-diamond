@@ -47,6 +47,9 @@
 #
 # [*handlers_path*]
 #   Define optional handlers_path for custom handlers
+#
+# [*purge_collectors*]
+#   Determine if we should purge collectors Puppet does not manage
 class diamond(
   $version          = 'present',
   $enable           = true,
@@ -67,6 +70,7 @@ class diamond(
   $rotate_level     = 'WARNING',
   $extra_handlers   = [],
   $handlers_path    = undef,
+  $purge_collectors = false,
 ) {
   class{'diamond::install': } ->
   class{'diamond::config': } ~>
