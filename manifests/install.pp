@@ -4,18 +4,27 @@
 # Also installed dependencies for collectors
 #
 class diamond::install {
-  
+
   if $diamond::install_from_pip {
     case $operatingsystem {
-      'RedHat': { $pythondev = "python-devel" }
-      /^(Debian|Ubuntu)$/: { $pythondev = "python-dev" }
-      'default': { fail("Unrecognized operating system") }
+      RedHay: { $pythondev = 'python-devel' }
+      /^(Debian|Ubuntu)$/: { $pythondev = 'python-dev' }
+      default: { fail("Unrecognized operating system") }
+    }
+  package {['python-pip','python-configobj','gcc',$pythondev]:
+    ensure => present,
+    before => Package['diamond'],
   }
-  ensure_packages(['python-pip','gcc',$pythondev], {'ensure' => 'present', 'before' => Package['diamond']})
-  ensure_packages(['diamond'], {'ensure' => 'present', 'provider' => pip})
-  file { "/etc/init.d/diamond":
-    mode => 755,
+  package {'diamond':
+    ensure   => present,
+    provider => pip,
+  }
+  file { '/etc/init.d/diamond':
+    mode    => '0755',
     require => Package['diamond'],
+  }
+  file { '/var/log/diamond':
+    ensure => directory,
   }
 } else {
   package { 'diamond':
