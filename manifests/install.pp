@@ -6,10 +6,10 @@
 class diamond::install {
 
   if $diamond::install_from_pip {
-    case $operatingsystem {
+    case $::operatingsystem {
       RedHay: { $pythondev = 'python-devel' }
       /^(Debian|Ubuntu)$/: { $pythondev = 'python-dev' }
-      default: { fail("Unrecognized operating system") }
+      default: { fail('Unrecognized operating system') }
     }
   package {['python-pip','python-configobj','gcc',$pythondev]:
     ensure => present,
@@ -31,7 +31,7 @@ class diamond::install {
     ensure  => $diamond::version,
   }
 }
-  
+
   file { '/var/run/diamond':
     ensure => directory,
   }
