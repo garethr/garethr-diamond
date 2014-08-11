@@ -6,7 +6,12 @@
 class diamond::install {
   
   if $diamond::install_from_pip {
-   ensure_packages(['python-pip','gcc','python-devel'], {'ensure' => 'present', 'before' => Package['diamond']})
+   case $operatingsystem {
+     'RedHat': { $pythondev = "python-deve" }
+     /^(Debian|Ubuntu)$/: { $pythondev = "python-dev" }
+     'default': { fail("Unrecognized operating system") }
+   }
+   ensure_packages(['python-pip','gcc',$pythondev], {'ensure' => 'present', 'before' => Package['diamond']})
    ensure_packages(['diamond'], {'ensure' => 'present', 'provider' => pip})
    file { "/etc/init.d/diamond":
    mode => 755,

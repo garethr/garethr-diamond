@@ -74,6 +74,7 @@ class diamond(
   $extra_handlers   = [],
   $handlers_path    = undef,
   $purge_collectors = false,
+  $install_from_pip = false,
 ) {
   class{'diamond::install': } ->
   class{'diamond::config': } ~>
