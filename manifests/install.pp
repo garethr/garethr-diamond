@@ -7,7 +7,7 @@ class diamond::install {
 
   if $diamond::install_from_pip {
     case $::operatingsystem {
-      RedHay: { $pythondev = 'python-devel' }
+      RedHat: { $pythondev = 'python-devel' }
       /^(Debian|Ubuntu)$/: { $pythondev = 'python-dev' }
       default: { fail('Unrecognized operating system') }
     }
