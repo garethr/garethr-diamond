@@ -6,15 +6,12 @@
 class diamond::install {
 
   if $diamond::install_from_pip {
-    case $::operatingsystem {
+    case $::osfamily {
       RedHat: { $pythondev = 'python-devel' }
       /^(Debian|Ubuntu)$/: { $pythondev = 'python-dev' }
       default: { fail('Unrecognized operating system') }
     }
-  package {['python-pip','python-configobj','gcc',$pythondev]:
-    ensure => present,
-    before => Package['diamond'],
-  }
+  ensure_resource('package', ['python-pip','python-configobj','gcc',$pythondev], {'ensure' => 'present', 'before' => Package['diamond']})
   package {'diamond':
     ensure   => present,
     provider => pip,

@@ -130,7 +130,7 @@ describe 'diamond', :type => :class do
 
   context 'with enabling pip installation on RedHat' do
     let (:params) { {'install_from_pip' => true} }
-    let (:facts) { {:operatingsystem => 'RedHat'} }
+    let (:facts) { {:osfamily => 'RedHat'} }
     it { should contain_package('python-pip').that_comes_before('Package[diamond]')}
     it { should contain_package('python-configobj').that_comes_before('Package[diamond]')}
     it { should contain_package('gcc').that_comes_before('Package[diamond]')}
@@ -146,7 +146,7 @@ describe 'diamond', :type => :class do
 
   context 'with enabling pip installation on Debian' do
     let (:params) { {'install_from_pip' => true} }
-    let (:facts) { {:operatingsystem => 'Debian'} }
+    let (:facts) { {:osfamily => 'Debian'} }
     it { should contain_package('python-pip').that_comes_before('Package[diamond]')}
     it { should contain_package('python-configobj').that_comes_before('Package[diamond]')}
     it { should contain_package('gcc').that_comes_before('Package[diamond]')}
@@ -162,7 +162,7 @@ describe 'diamond', :type => :class do
 
   context 'with enabling pip installation on Ubuntu' do
     let (:params) { {'install_from_pip' => true} }
-    let (:facts) { {:operatingsystem => 'Ubuntu'} }
+    let (:facts) { {:osfamily => 'Ubuntu'} }
     it { should contain_package('python-pip').that_comes_before('Package[diamond]')}
     it { should contain_package('python-configobj').that_comes_before('Package[diamond]')}
     it { should contain_package('gcc').that_comes_before('Package[diamond]')}
