@@ -50,6 +50,9 @@
 #
 # [*purge_collectors*]
 #   Determine if we should purge collectors Puppet does not manage
+#
+# [*install_from_pip*]
+#   Determine if we should install diamond from python-pip
 class diamond(
   $version          = 'present',
   $enable           = true,
@@ -71,6 +74,7 @@ class diamond(
   $extra_handlers   = [],
   $handlers_path    = undef,
   $purge_collectors = false,
+  $install_from_pip = false,
 ) {
   class{'diamond::install': } ->
   class{'diamond::config': } ~>

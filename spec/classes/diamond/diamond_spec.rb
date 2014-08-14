@@ -128,4 +128,53 @@ describe 'diamond', :type => :class do
     it { should contain_file('/etc/diamond/collectors').with('purge' => 'false')}
   end
 
+  context 'with enabling pip installation on RedHat' do
+    let (:params) { {'install_from_pip' => true} }
+    let (:facts) { {:osfamily => 'RedHat'} }
+    it { should contain_class('epel') }
+    it { should contain_package('python-pip').that_comes_before('Package[diamond]')}
+    it { should contain_package('python-configobj').that_comes_before('Package[diamond]')}
+    it { should contain_package('gcc').that_comes_before('Package[diamond]')}
+    it { should contain_package('python-devel').that_comes_before('Package[diamond]')}
+    it { should contain_package('diamond').with(
+      'ensure'   => 'present',
+      'provider' => 'pip'
+      )
+    }
+    it { should contain_file('/etc/init.d/diamond')}
+    it { should contain_file('/var/log/diamond')}
+  end
+
+  context 'with enabling pip installation on Debian' do
+    let (:params) { {'install_from_pip' => true} }
+    let (:facts) { {:osfamily => 'Debian'} }
+    it { should contain_package('python-pip').that_comes_before('Package[diamond]')}
+    it { should contain_package('python-configobj').that_comes_before('Package[diamond]')}
+    it { should contain_package('gcc').that_comes_before('Package[diamond]')}
+    it { should contain_package('python-dev').that_comes_before('Package[diamond]')}
+    it { should contain_package('diamond').with(
+      'ensure'   => 'present',
+      'provider' => 'pip'
+      )
+    }
+    it { should contain_file('/etc/init.d/diamond')}
+    it { should contain_file('/var/log/diamond')}
+  end
+
+  context 'with enabling pip installation on Ubuntu' do
+    let (:params) { {'install_from_pip' => true} }
+    let (:facts) { {:osfamily => 'Ubuntu'} }
+    it { should contain_package('python-pip').that_comes_before('Package[diamond]')}
+    it { should contain_package('python-configobj').that_comes_before('Package[diamond]')}
+    it { should contain_package('gcc').that_comes_before('Package[diamond]')}
+    it { should contain_package('python-dev').that_comes_before('Package[diamond]')}
+    it { should contain_package('diamond').with(
+      'ensure'   => 'present',
+      'provider' => 'pip'
+      )
+    }
+    it { should contain_file('/etc/init.d/diamond')}
+    it { should contain_file('/var/log/diamond')}
+  end
+
 end
