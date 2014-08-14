@@ -131,6 +131,7 @@ describe 'diamond', :type => :class do
   context 'with enabling pip installation on RedHat' do
     let (:params) { {'install_from_pip' => true} }
     let (:facts) { {:osfamily => 'RedHat'} }
+    it { should contain_class('epel') }
     it { should contain_package('python-pip').that_comes_before('Package[diamond]')}
     it { should contain_package('python-configobj').that_comes_before('Package[diamond]')}
     it { should contain_package('gcc').that_comes_before('Package[diamond]')}
