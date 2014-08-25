@@ -6,8 +6,7 @@ describe 'diamond::collector', :type => :define do
     let (:title) { 'testCollector' }
 
     it { should contain_class('diamond') }
-    it { should contain_file('/etc/diamond/collectors/testCollector.conf')
-           .with_content(/^enabled=True$/) }
+    it { should contain_file('/etc/diamond/collectors/testCollector.conf').with_content(/^enabled=True$/) }
   end
 
   context 'with options' do
@@ -18,8 +17,7 @@ describe 'diamond::collector', :type => :define do
         }
     }}
 
-    it { should contain_file('/etc/diamond/collectors/testCollector.conf')
-           .with_content(/^enabled=True\ntestOption = testValue$/) }
+    it { should contain_file('/etc/diamond/collectors/testCollector.conf').with_content(/^enabled=True\ntestOption = testValue$/) }
   end
 
   context 'with sections' do
@@ -32,8 +30,7 @@ describe 'diamond::collector', :type => :define do
         }
     }}
 
-    it { should contain_file('/etc/diamond/collectors/testCollector.conf')
-           .with_content(/^enabled=True\n\ntestSection\ntestSectionOption = testSectionValue$/) }
+    it { should contain_file('/etc/diamond/collectors/testCollector.conf').with_content(/^enabled=True\n\ntestSection\ntestSectionOption = testSectionValue$/) }
   end
 
 end
