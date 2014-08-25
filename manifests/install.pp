@@ -39,9 +39,9 @@ class diamond::install {
   }
 
   file { '/etc/diamond':
-    ensure  => directory,
-    owner   => root,
-    group   => root,
+    ensure => directory,
+    owner  => root,
+    group  => root,
   }
 
   file { '/etc/diamond/collectors':
