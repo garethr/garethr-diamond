@@ -17,8 +17,7 @@ describe 'diamond::handler', :type => :define do
         }
     }}
 
-    it { should contain_file('/etc/diamond/handlers/testHandler.conf')
-           .with_content(/^testOption = testValue$/) }
+    it { should contain_file('/etc/diamond/handlers/testHandler.conf').with_content(/^testOption = testValue$/) }
   end
 
   context 'with sections' do
@@ -31,8 +30,7 @@ describe 'diamond::handler', :type => :define do
         }
     }}
 
-    it { should contain_file('/etc/diamond/handlers/testHandler.conf')
-           .with_content(/^testSection\ntestSectionOption = testSectionValue$/) }
+    it { should contain_file('/etc/diamond/handlers/testHandler.conf').with_content(/^testSection\ntestSectionOption = testSectionValue$/) }
   end
 
 end
