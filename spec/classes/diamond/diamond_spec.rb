@@ -47,6 +47,12 @@ describe 'diamond', :type => :class do
     it { should_not contain_file('/etc/diamond/diamond.conf').with_content(/port = 2004/)}
   end
 
+  context 'with a UDP protocol' do
+    let(:params) { {'graphite_host' => 'graphite.example.com', 'graphite_proto' => 'UDP'} }
+    it { should contain_file('/etc/diamond/diamond.conf').with_content(/proto = UDP/)}
+    it { should_not contain_file('/etc/diamond/diamond.conf').with_content(/proto = TCP/)}
+  end
+
   context 'with a custom logger_level and rotate_level of logging' do
     let(:params) { {'logger_level' => 'DEBUG', 'rotate_level' => 'INFO'} }
     it { should contain_file('/etc/diamond/diamond.conf').with_content(/level = DEBUG/)}

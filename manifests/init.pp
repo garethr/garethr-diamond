@@ -24,6 +24,9 @@
 # [*graphite_handler*]
 #   Which handler to use to talk with graphite server
 #
+# [*graphite_proto*]
+#   Which protocol to use to talk with graphite server
+#
 # [*stats_host*]
 #   Where to find the stats server
 #
@@ -63,6 +66,7 @@ class diamond(
   $graphite_host    = false,
   $graphite_handler = 'graphite.GraphiteHandler',
   $graphite_port    = '2003',
+  $graphite_proto   = 'TCP',
   $pickle_port      = '2004',
   $riemann_host     = false,
   $stats_host       = '127.0.0.1',
