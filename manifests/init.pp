@@ -24,7 +24,7 @@
 # [*graphite_handler*]
 #   Which handler to use to talk with graphite server
 #
-# [*graphite_proto*]
+# [*graphite_protocol*]
 #   Which protocol to use to talk with graphite server
 #
 # [*stats_host*]
@@ -57,28 +57,28 @@
 # [*install_from_pip*]
 #   Determine if we should install diamond from python-pip
 class diamond(
-  $version          = 'present',
-  $enable           = true,
-  $start            = true,
-  $interval         = 30,
-  $librato_user     = false,
-  $librato_apikey   = false,
-  $graphite_host    = false,
-  $graphite_handler = 'graphite.GraphiteHandler',
-  $graphite_port    = '2003',
-  $graphite_proto   = 'TCP',
-  $pickle_port      = '2004',
-  $riemann_host     = false,
-  $stats_host       = '127.0.0.1',
-  $stats_port       = 8125,
-  $path_prefix      = undef,
-  $path_suffix      = undef,
-  $logger_level     = 'WARNING',
-  $rotate_level     = 'WARNING',
-  $extra_handlers   = [],
-  $handlers_path    = undef,
-  $purge_collectors = false,
-  $install_from_pip = false,
+  $version           = 'present',
+  $enable            = true,
+  $start             = true,
+  $interval          = 30,
+  $librato_user      = false,
+  $librato_apikey    = false,
+  $graphite_host     = false,
+  $graphite_handler  = 'graphite.GraphiteHandler',
+  $graphite_port     = '2003',
+  $graphite_protocol = 'TCP',
+  $pickle_port       = '2004',
+  $riemann_host      = false,
+  $stats_host        = '127.0.0.1',
+  $stats_port        = 8125,
+  $path_prefix       = undef,
+  $path_suffix       = undef,
+  $logger_level      = 'WARNING',
+  $rotate_level      = 'WARNING',
+  $extra_handlers    = [],
+  $handlers_path     = undef,
+  $purge_collectors  = false,
+  $install_from_pip  = false,
 ) {
   class{'diamond::install': } ->
   class{'diamond::config': } ~>

@@ -48,7 +48,7 @@ describe 'diamond', :type => :class do
   end
 
   context 'with a UDP protocol' do
-    let(:params) { {'graphite_host' => 'graphite.example.com', 'graphite_proto' => 'UDP'} }
+    let(:params) { {'graphite_host' => 'graphite.example.com', 'graphite_protocol' => 'UDP'} }
     it { should contain_file('/etc/diamond/diamond.conf').with_content(/proto = UDP/)}
     it { should_not contain_file('/etc/diamond/diamond.conf').with_content(/proto = TCP/)}
   end
