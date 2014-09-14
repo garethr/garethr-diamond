@@ -54,6 +54,12 @@ describe 'diamond', :type => :class do
     it { should_not contain_file('/etc/diamond/diamond.conf').with_content(/level = WARNING/)}
   end
 
+  context 'when specifing the number days to keep logs' do
+    let(:params) {{ 'rotate_days' => '42' }}
+    it { should contain_file('/etc/diamond/diamond.conf').with_content(/days = 42/)}
+    it { should contain_file('/etc/diamond/diamond.conf').with_content(/args = \('\/var\/log\/diamond\/diamond.log', 'midnight', 1, 42\)/)}
+  end
+
   context 'with a riemann host' do
     let(:params) { {'riemann_host' => 'riemann.example.com'} }
     it { should contain_package('python-pip')}
