@@ -12,6 +12,7 @@ class diamond::config {
   $path_prefix      = $diamond::path_prefix
   $path_suffix      = $diamond::path_suffix
   $handlers_path    = $diamond::handlers_path
+  $rotate_days      = $diamond::rotate_days
   file { '/etc/diamond/diamond.conf':
     ensure  => present,
     content => template('diamond/etc/diamond/diamond.conf.erb'),

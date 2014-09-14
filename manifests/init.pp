@@ -53,6 +53,10 @@
 #
 # [*install_from_pip*]
 #   Determine if we should install diamond from python-pip
+#
+# [*rotate_days*]
+#   Number of days of rotate logs to keep
+#
 class diamond(
   $version          = 'present',
   $enable           = true,
@@ -71,6 +75,7 @@ class diamond(
   $path_suffix      = undef,
   $logger_level     = 'WARNING',
   $rotate_level     = 'WARNING',
+  $rotate_days      = 7,
   $extra_handlers   = [],
   $handlers_path    = undef,
   $purge_collectors = false,
