@@ -57,6 +57,9 @@
 # [*rotate_days*]
 #   Number of days of rotate logs to keep
 #
+# [*install*]
+#   Install flag if diamond is pre-installed 
+#
 class diamond(
   $version          = 'present',
   $enable           = true,
@@ -80,6 +83,7 @@ class diamond(
   $handlers_path    = undef,
   $purge_collectors = false,
   $install_from_pip = false,
+  $install = true,
 ) {
   class{'diamond::install': } ->
   class{'diamond::config': } ~>
