@@ -11,6 +11,8 @@ class diamond::config {
   $librato_apikey   = $diamond::librato_apikey
   $path_prefix      = $diamond::path_prefix
   $path_suffix      = $diamond::path_suffix
+  $server_hostname  = $diamond::server_hostname
+  $hostname_method  = $diamond::hostname_method
   $handlers_path    = $diamond::handlers_path
   file { '/etc/diamond/diamond.conf':
     ensure  => present,

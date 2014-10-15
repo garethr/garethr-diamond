@@ -66,6 +66,8 @@ class diamond(
   $logger_level     = 'WARNING',
   $rotate_level     = 'WARNING',
   $extra_handlers   = [],
+  $server_hostname  = undef,
+  $hostname_method  = undef,
   $handlers_path    = undef,
 ) {
   class{'diamond::install': } ->

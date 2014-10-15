@@ -142,6 +142,10 @@ transport = tcp
 # Keep in mind, periods are seperators in graphite
 # hostname = my_custom_hostname
 
+<% if @server_hostname -%>
+hostname = <%= @server_hostname %>
+<% end -%>
+
 # If you prefer to just use a different way of calculating the hostname
 # Uncomment and set this to one of these values:
 
@@ -159,6 +163,9 @@ transport = tcp
 # hostname_rev      = `hostname` in reverse (com.example.www)
 
 # hostname_method = smart
+<% if @hostname_method -%>
+hostname_method = <%= @hostname_method %>
+<% end -%>
 
 # Path Prefix and Suffix
 # you can use one or both to craft the path where you want to put metrics
