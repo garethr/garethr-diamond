@@ -10,6 +10,7 @@ describe 'diamond', :type => :class do
 
     it { should contain_file('/etc/diamond/diamond.conf').with_content(/interval = 30/)}
 
+    it { should contain_file('/etc/diamond/collectors').with('purge' => 'false')}
 
     it { should_not contain_package('python-pip')}
     it { should_not contain_package('librato-metrics')}
@@ -51,6 +52,12 @@ describe 'diamond', :type => :class do
     it { should contain_file('/etc/diamond/diamond.conf').with_content(/level = DEBUG/)}
     it { should contain_file('/etc/diamond/diamond.conf').with_content(/level = INFO/)}
     it { should_not contain_file('/etc/diamond/diamond.conf').with_content(/level = WARNING/)}
+  end
+
+  context 'when specifing the number days to keep logs' do
+    let(:params) {{ 'rotate_days' => '42' }}
+    it { should contain_file('/etc/diamond/diamond.conf').with_content(/days = 42/)}
+    it { should contain_file('/etc/diamond/diamond.conf').with_content(/args = \('\/var\/log\/diamond\/diamond.log', 'midnight', 1, 42\)/)}
   end
 
   context 'with a riemann host' do
@@ -115,6 +122,65 @@ describe 'diamond', :type => :class do
   context 'with a handlers_path' do
     let(:params) { {'handlers_path' => '/opt/diamond/handlers'} }
     it { should contain_file('/etc/diamond/diamond.conf').with_content(/handlers_path = \/opt\/diamond\/handlers/)}
+  end
+
+  context 'with purging collectors' do
+    let (:params) { {'purge_collectors' => true} }
+    it { should contain_file('/etc/diamond/collectors').with('purge' => 'true')}
+  end
+
+  context 'with not purging collectors' do
+    let (:params) { {'purge_collectors' => false} }
+    it { should contain_file('/etc/diamond/collectors').with('purge' => 'false')}
+  end
+
+  context 'with enabling pip installation on RedHat' do
+    let (:params) { {'install_from_pip' => true} }
+    let (:facts) { {:osfamily => 'RedHat'} }
+    it { should contain_class('epel') }
+    it { should contain_package('python-pip').that_comes_before('Package[diamond]')}
+    it { should contain_package('python-configobj').that_comes_before('Package[diamond]')}
+    it { should contain_package('gcc').that_comes_before('Package[diamond]')}
+    it { should contain_package('python-devel').that_comes_before('Package[diamond]')}
+    it { should contain_package('diamond').with(
+      'ensure'   => 'present',
+      'provider' => 'pip'
+      )
+    }
+    it { should contain_file('/etc/init.d/diamond')}
+    it { should contain_file('/var/log/diamond')}
+  end
+
+  context 'with enabling pip installation on Debian' do
+    let (:params) { {'install_from_pip' => true} }
+    let (:facts) { {:osfamily => 'Debian'} }
+    it { should contain_package('python-pip').that_comes_before('Package[diamond]')}
+    it { should contain_package('python-configobj').that_comes_before('Package[diamond]')}
+    it { should contain_package('gcc').that_comes_before('Package[diamond]')}
+    it { should contain_package('python-dev').that_comes_before('Package[diamond]')}
+    it { should contain_package('diamond').with(
+      'ensure'   => 'present',
+      'provider' => 'pip'
+      )
+    }
+    it { should contain_file('/etc/init.d/diamond')}
+    it { should contain_file('/var/log/diamond')}
+  end
+
+  context 'with enabling pip installation on Ubuntu' do
+    let (:params) { {'install_from_pip' => true} }
+    let (:facts) { {:osfamily => 'Ubuntu'} }
+    it { should contain_package('python-pip').that_comes_before('Package[diamond]')}
+    it { should contain_package('python-configobj').that_comes_before('Package[diamond]')}
+    it { should contain_package('gcc').that_comes_before('Package[diamond]')}
+    it { should contain_package('python-dev').that_comes_before('Package[diamond]')}
+    it { should contain_package('diamond').with(
+      'ensure'   => 'present',
+      'provider' => 'pip'
+      )
+    }
+    it { should contain_file('/etc/init.d/diamond')}
+    it { should contain_file('/var/log/diamond')}
   end
 
 end

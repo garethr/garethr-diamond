@@ -1,7 +1,8 @@
 A Puppet module for managing the installation and configuration of
 [Diamond](https://github.com/BrightcoveOS/Diamond).
 
-[![Build
+[![Puppet
+Forge](http://img.shields.io/puppetforge/v/garethr/diamond.svg)](https://forge.puppetlabs.com/garethr/diamond) [![Build
 Status](https://secure.travis-ci.org/garethr/garethr-diamond.png)](http://travis-ci.org/garethr/garethr-diamond)
 
 # Usage

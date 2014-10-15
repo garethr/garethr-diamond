@@ -47,6 +47,16 @@
 #
 # [*handlers_path*]
 #   Define optional handlers_path for custom handlers
+#
+# [*purge_collectors*]
+#   Determine if we should purge collectors Puppet does not manage
+#
+# [*install_from_pip*]
+#   Determine if we should install diamond from python-pip
+#
+# [*rotate_days*]
+#   Number of days of rotate logs to keep
+#
 class diamond(
   $version          = 'present',
   $enable           = true,
@@ -65,10 +75,13 @@ class diamond(
   $path_suffix      = undef,
   $logger_level     = 'WARNING',
   $rotate_level     = 'WARNING',
+  $rotate_days      = 7,
   $extra_handlers   = [],
   $server_hostname  = undef,
   $hostname_method  = undef,
   $handlers_path    = undef,
+  $purge_collectors = false,
+  $install_from_pip = false,
 ) {
   class{'diamond::install': } ->
   class{'diamond::config': } ~>
