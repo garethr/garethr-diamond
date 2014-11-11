@@ -10,10 +10,26 @@ class diamond::install {
       RedHat: {
         include epel
         ensure_resource('package', 'python-pip', {'ensure' => 'present', 'before' => Package['diamond'], 'require' => Yumrepo['epel']})
-        ensure_resource('package', ['python-configobj','gcc',python-devel], {'ensure' => 'present', 'before' => Package['diamond'], 'require' => Package['python-pip']})
+        ensure_resource('package', ['python-configobj','gcc','python-devel'], {'ensure' => 'present', 'before' => Package['diamond'], 'require' => Package['python-pip']})
       }
       /^(Debian|Ubuntu)$/: {
-        ensure_resource('package', ['python-pip','python-configobj','gcc',python-dev], {'ensure' => 'present', 'before' => Package['diamond']})
+        ensure_resource('package', ['python-pip','python-configobj','gcc','python-dev'], {'ensure' => 'present', 'before' => Package['diamond']})
+      }
+      Solaris: {
+        case $::operatingsystemrelease {
+          '5.11': {
+            ensure_resource('package', ['pip','solarisstudio-124'], {'ensure' => 'present', 'before' => Package['diamond']})
+            file { '/ws/on11update-tools/SUNWspro/sunstudio12.1':
+              ensure  => symlink,
+              target  => '/opt/solarisstudio12.4',
+              before  => Package['diamond'],
+              require => Package['solarisstudio-124'],
+            }
+          }
+          default: {
+            fail('Module only supports version 11 when used on Solaris')
+          }
+        }
       }
       default: { fail('Unrecognized operating system') }
     }
@@ -21,9 +37,27 @@ class diamond::install {
     ensure   => present,
     provider => pip,
   }
-  file { '/etc/init.d/diamond':
-    mode    => '0755',
-    require => Package['diamond'],
+  if $::osfamily == 'Solaris' {
+    # This should eventually go upstream
+    file { '/lib/svc/method/diamond':
+      source  => 'puppet:///modules/diamond/solaris/method/diamond',
+      mode    => '0755',
+      owner   => 'root',
+      group   => 'bin',
+      require => Package['diamond'],
+    }
+    file { '/lib/svc/manifest/network/diamond.xml':
+      source  => 'puppet:///modules/diamond/solaris/manifest/diamond.xml',
+      mode    => '0444',
+      owner   => 'root',
+      group   => 'sys',
+      require => [Package['diamond'],File['/lib/svc/method/diamond']],
+    }
+  } else {
+    file { '/etc/init.d/diamond':
+      mode    => '0755',
+      require => Package['diamond'],
+    }
   }
   file { '/var/log/diamond':
     ensure => directory,

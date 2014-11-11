@@ -1,0 +1,32 @@
+<?xml version='1.0'?>
+<!DOCTYPE service_bundle SYSTEM '/usr/share/lib/xml/dtd/service_bundle.dtd.1'>
+<service_bundle type='manifest' name='export'>
+  <service name='network/diamond' type='service' version='0'>
+    <create_default_instance enabled='true'/>
+    <single_instance/>
+    <dependency name='config-file' grouping='require_all' restart_on='none' type='path'>
+      <service_fmri value='file:///etc/diamond/diamond.conf'/>
+    </dependency>
+    <dependency name='filesystem-local' grouping='require_all' restart_on='none' type='service'>
+      <service_fmri value='svc:/system/filesystem/local:default'/>
+    </dependency>
+    <dependency name='network' grouping='require_all' restart_on='error' type='service'>
+      <service_fmri value='svc:/milestone/network:default'/>
+    </dependency>
+    <dependency name='fs-local' grouping='require_all' restart_on='none' type='service'>
+      <service_fmri value='svc:/system/filesystem/local'/>
+    </dependency>
+    <exec_method name='start' type='method' exec='/lib/svc/method/diamond start' timeout_seconds='60'/>
+    <exec_method name='stop' type='method' exec='/lib/svc/method/diamond stop' timeout_seconds='60'/>
+    <stability value='Evolving'/>
+    <template>
+      <common_name>
+        <loctext xml:lang='C'>Diamond Python Metrics Collection Daemon</loctext>
+      </common_name>
+      <documentation>
+        <manpage title='diamond' section='1'/>
+        <doc_link name='github.com/BrightcoveOS' uri='https://github.com/BrightcoveOS/Diamond/wiki'/>
+      </documentation>
+    </template>
+  </service>
+</service_bundle>

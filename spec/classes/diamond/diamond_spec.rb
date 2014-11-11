@@ -183,4 +183,20 @@ describe 'diamond', :type => :class do
     it { should contain_file('/var/log/diamond')}
   end
 
+  context 'with enabling pip installation on Solaris' do
+    let (:params) { {'install_from_pip' => true} }
+    let (:facts) { {:osfamily => 'Solaris', :operatingsystemrelease => '5.11'} }
+    it { should contain_package('solarisstudio-124').that_comes_before('Package[diamond]')}
+    it { should contain_package('pip').that_comes_before('Package[diamond]')}
+    it { should contain_package('diamond').with(
+      'ensure'   => 'present',
+      'provider' => 'pip'
+      )
+    }
+    it { should contain_file('/lib/svc/method/diamond')}
+    it { should contain_file('/lib/svc/manifest/network/diamond.xml')}
+    it { should contain_file('/var/log/diamond')}
+    it { should contain_file('/ws/on11update-tools/SUNWspro/sunstudio12.1').that_comes_before('Package[diamond]')}
+  end
+
 end
