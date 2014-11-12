@@ -18,12 +18,14 @@ class diamond::install {
       Solaris: {
         case $::operatingsystemrelease {
           '5.11': {
-            ensure_resource('package', ['pip','solarisstudio-124'], {'ensure' => 'present', 'before' => Package['diamond']})
+            ensure_resource('package', ['pip','solarisstudio-122'], {'ensure' => 'present', 'before' => Package['diamond']})
+            file { ['/ws', '/ws/on11update-tools', '/ws/on11update-tools/SUNWspro']: ensure => directory, }
             file { '/ws/on11update-tools/SUNWspro/sunstudio12.1':
               ensure  => symlink,
-              target  => '/opt/solarisstudio12.4',
+              force   => true,
+              target  => '/opt/solstudio12.2',
               before  => Package['diamond'],
-              require => Package['solarisstudio-124'],
+              require => Package['solarisstudio-122'],
             }
           }
           default: {
