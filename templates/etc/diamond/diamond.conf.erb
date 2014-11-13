@@ -1,5 +1,5 @@
 <%-
-handlers = @extra_handlers
+handlers = Array(@extra_handlers)
 if @graphite_host then
   handlers << "diamond.handler.#{@graphite_handler}"
 end
