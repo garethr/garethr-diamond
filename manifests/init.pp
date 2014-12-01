@@ -45,6 +45,9 @@
 # [*path_suffix*]
 #   Define optional path_suffix for storing metrics
 #
+# [*instance_prefix*]
+#   Define optional instance_prefix for storing instance metrics
+#
 # [*handlers_path*]
 #   Define optional handlers_path for custom handlers
 #
@@ -73,6 +76,7 @@ class diamond(
   $stats_port       = 8125,
   $path_prefix      = undef,
   $path_suffix      = undef,
+  $instance_prefix  = undef,
   $logger_level     = 'WARNING',
   $rotate_level     = 'WARNING',
   $rotate_days      = 7,
