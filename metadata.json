@@ -1,0 +1,52 @@
+{
+  "name": "garethr-diamond",
+  "version": "1.0.0",
+  "author": "Gareth Rushgrove",
+  "summary": "Module for installing and managing the Diamond stats collection tool",
+  "license": "Apache License, Version 2.0",
+  "source": "git://github.com/garethr/garethr-diamond",
+  "project_page": "https://github.com/garethr/garethr-diamond",
+  "issues_url": "https://github.com/garethr/garethr-diamond/issues",
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "RedHat",
+      "operatingsystemrelease": [
+        "6.5",
+        "7"
+      ]
+    },{
+      "operatingsystem": "CentOS",
+      "operatingsystemrelease": [
+        "6.5",
+        "7"
+      ]
+    },{
+      "operatingsystem": "Ubuntu",
+      "operatingsystemrelease": [
+        "12.04",
+        "14.04"
+      ]
+    },{
+      "operatingsystem": "Solaris",
+      "operatingsystemrelease": [
+        "5.11",
+      ]
+    }
+  ],
+  "requirements": [
+    {
+      "name": "pe",
+      "version_requirement": "3.x"
+    },
+    {
+      "name": "puppet",
+      "version_requirement": "3.x"
+    }
+  ],
+  "dependencies": [
+    {
+      "name": "puppetlabs/stdlib",
+      "version_requirement": ">= 4.1.0"
+    }
+  ]
+}
