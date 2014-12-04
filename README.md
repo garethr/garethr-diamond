@@ -106,12 +106,3 @@ class { 'diamond':
   graphite_host  => 'graphite.example.com',
 }
 ```
-
-# Optional requirements
-
-Diamond appears not to have a canonical package repository I could find
-or a PPA or similar. PyPi has a record but not source or binary
-packages. So this module can make use of my own personal debian package
-repository. This is installed with the
-[garethr](https://github.com/garethr/garethr-garethr) module if needed.
-Alernatively host your own package repository.
