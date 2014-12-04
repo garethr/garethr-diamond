@@ -16,6 +16,8 @@ class diamond::config {
   $instance_prefix  = $diamond::instance_prefix
   $logger_level     = $diamond::logger_level
   $rotate_level     = $diamond::rotate_level
+  $server_hostname  = $diamond::server_hostname
+  $hostname_method  = $diamond::hostname_method
   $handlers_path    = $diamond::handlers_path
   $rotate_days      = $diamond::rotate_days
   file { '/etc/diamond/diamond.conf':

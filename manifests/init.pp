@@ -85,6 +85,8 @@ class diamond(
   $rotate_level      = 'WARNING',
   $rotate_days       = 7,
   $extra_handlers    = [],
+  $server_hostname   = undef,
+  $hostname_method   = undef,
   $handlers_path     = undef,
   $purge_collectors  = false,
   $install_from_pip  = false,
