@@ -57,33 +57,33 @@
 # [*rotate_days*]
 #   Number of days of rotate logs to keep
 #
-# [*install*]
+# [*manage_installation*]
 #   Install flag if diamond is pre-installed 
 #
 class diamond(
-  $version          = 'present',
-  $enable           = true,
-  $start            = true,
-  $interval         = 30,
-  $librato_user     = false,
-  $librato_apikey   = false,
-  $graphite_host    = false,
-  $graphite_handler = 'graphite.GraphiteHandler',
-  $graphite_port    = '2003',
-  $pickle_port      = '2004',
-  $riemann_host     = false,
-  $stats_host       = '127.0.0.1',
-  $stats_port       = 8125,
-  $path_prefix      = undef,
-  $path_suffix      = undef,
-  $logger_level     = 'WARNING',
-  $rotate_level     = 'WARNING',
-  $rotate_days      = 7,
-  $extra_handlers   = [],
-  $handlers_path    = undef,
-  $purge_collectors = false,
-  $install_from_pip = false,
-  $install = true,
+  $version             = 'present',
+  $enable              = true,
+  $start               = true,
+  $interval            = 30,
+  $librato_user        = false,
+  $librato_apikey      = false,
+  $graphite_host       = false,
+  $graphite_handler    = 'graphite.GraphiteHandler',
+  $graphite_port       = '2003',
+  $pickle_port         = '2004',
+  $riemann_host        = false,
+  $stats_host          = '127.0.0.1',
+  $stats_port          = 8125,
+  $path_prefix         = undef,
+  $path_suffix         = undef,
+  $logger_level        = 'WARNING',
+  $rotate_level        = 'WARNING',
+  $rotate_days         = 7,
+  $extra_handlers      = [],
+  $handlers_path       = undef,
+  $purge_collectors    = false,
+  $install_from_pip    = false,
+  $manage_installation = true,
 ) {
   class{'diamond::install': } ->
   class{'diamond::config': } ~>

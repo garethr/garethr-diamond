@@ -5,7 +5,7 @@
 #
 class diamond::install {
 
-  if $diamond::install{
+  if $diamond::manage_installation{
     if $diamond::install_from_pip {
       case $::osfamily {
         RedHat: {
