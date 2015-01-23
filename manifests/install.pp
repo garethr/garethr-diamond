@@ -78,12 +78,14 @@ class diamond::install {
     ensure => directory,
     owner  => root,
     group  => root,
+    mode   => '0755',
   }
 
   file { '/etc/diamond/collectors':
     ensure  => directory,
     owner   => root,
     group   => root,
+    mode    => '0755',
     purge   => $diamond::purge_collectors,
     recurse => true,
     require => File['/etc/diamond'],
