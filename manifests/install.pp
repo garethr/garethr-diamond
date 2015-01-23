@@ -7,7 +7,7 @@ class diamond::install {
 
   if $diamond::install_from_pip {
     case $::osfamily {
-      RedHat: {
+      'RedHat': {
         include epel
         ensure_resource('package', 'python-pip', {'ensure' => 'present', 'before' => Package['diamond'], 'require' => Yumrepo['epel']})
         ensure_resource('package', ['python-configobj','gcc','python-devel'], {'ensure' => 'present', 'before' => Package['diamond'], 'require' => Package['python-pip']})
@@ -15,7 +15,7 @@ class diamond::install {
       /^(Debian|Ubuntu)$/: {
         ensure_resource('package', ['python-pip','python-configobj','gcc','python-dev'], {'ensure' => 'present', 'before' => Package['diamond']})
       }
-      Solaris: {
+      'Solaris': {
         case $::operatingsystemrelease {
           '5.11': {
             ensure_resource('package', ['pip','solarisstudio-122'], {'ensure' => 'present', 'before' => Package['diamond']})
