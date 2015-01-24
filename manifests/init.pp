@@ -90,7 +90,9 @@ class diamond(
   $handlers_path     = undef,
   $purge_collectors  = false,
   $install_from_pip  = false,
+  $manage_python     = true,
 ) {
+  class{'diamond::python': } ->
   class{'diamond::install': } ->
   class{'diamond::config': } ~>
   class{'diamond::service': } ->
