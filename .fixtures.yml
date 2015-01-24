@@ -2,5 +2,7 @@ fixtures:
   repositories:
     stdlib: git://github.com/puppetlabs/puppetlabs-stdlib.git
     epel: git://github.com/stahnma/puppet-module-epel.git
+  forge_modules:
+    python: 'stankevich/python'
   symlinks:
     diamond: "#{source_dir}"
