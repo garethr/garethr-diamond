@@ -152,13 +152,13 @@ describe 'diamond', :type => :class do
         let (:params) { {'install_from_pip' => true} }
         it { should contain_package('diamond').with(
           'ensure'   => 'present',
-          'provider' => 'pip',
+          'provider' => 'pip'
           )
         }
         if osfamily != 'Solaris'
           it { should contain_file('/etc/init.d/diamond') }
         end
-        it { should contain_file('/var/log/diamond')}
+        it { should contain_file('/var/log/diamond') }
       end
 
       context 'with enabling manage_python' do
@@ -168,7 +168,7 @@ describe 'diamond', :type => :class do
           it { should contain_class('python').with(
               'pip'     => true,
               'dev'     => true,
-              'require' => 'Class[Epel]',
+              'require' => 'Class[Epel]'
             )
           }
           it { should contain_package('python-pip') }
