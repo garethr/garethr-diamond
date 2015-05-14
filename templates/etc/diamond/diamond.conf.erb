@@ -9,6 +9,9 @@ end
 if @riemann_host then
   handlers << 'diamond.handler.riemann.RiemannHandler'
 end
+if @hostedgraphite_apikey then
+  handlers << 'diamond.handler.hostedgraphite.HostedGraphiteHandler'
+end
 -%>
 ################################################################################
 # Diamond Configuration File
@@ -128,6 +131,9 @@ timeout = 15
 [[LibratoHandler]]
 user = <%= @librato_user %>
 apikey = <%= @librato_apikey %>
+
+[[HostedGraphiteHandler]]
+apikey = <% @hostedgraphite_apikey %>
 
 [[RiemannHandler]]
 host = <%= @riemann_host %>
