@@ -15,6 +15,12 @@
 # [*interval*]
 #   How often should metrics be collected and sent to Graphite
 #
+# [*diamond_user*]
+#   User diamond will run under
+#
+# [*diamond_group*]
+#   Group diamond will run under
+#
 # [*extra_handlers*]
 #   Additional handlers to include in configuration
 #
@@ -71,6 +77,8 @@ class diamond(
   $enable                = true,
   $start                 = true,
   $interval              = 30,
+  $diamond_user          = root,
+  $diamond_group         = root,
   $librato_user          = false,
   $librato_apikey        = false,
   $graphite_host         = false,
