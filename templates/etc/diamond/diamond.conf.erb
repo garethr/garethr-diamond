@@ -9,6 +9,9 @@ end
 if @riemann_host then
   handlers << 'diamond.handler.riemann.RiemannHandler'
 end
+if @hostedgraphite_apikey then
+  handlers << 'diamond.handler.hostedgraphite.HostedGraphiteHandler'
+end
 -%>
 ################################################################################
 # Diamond Configuration File
@@ -23,11 +26,11 @@ handlers = <%= Array(handlers).join(',') %>
 
 # User diamond will run as
 # Leave empty to use the current user
-user =
+user = <%= @diamond_user %>
 
 # Group diamond will run as
 # Leave empty to use the current group
-group =
+group = <%= @diamond_group %>
 
 # Pid file
 pid_file = /var/run/diamond.pid
@@ -128,6 +131,9 @@ timeout = 15
 [[LibratoHandler]]
 user = <%= @librato_user %>
 apikey = <%= @librato_apikey %>
+
+[[HostedGraphiteHandler]]
+apikey = <% @hostedgraphite_apikey %>
 
 [[RiemannHandler]]
 host = <%= @riemann_host %>
