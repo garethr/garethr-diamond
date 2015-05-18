@@ -3,6 +3,8 @@
 # The configuration of the Diamond daemon
 #
 class diamond::config {
+  $diamond_user     = $diamond::diamond_user
+  $diamond_group    = $diamond::diamond_group
   $interval         = $diamond::interval
   $graphite_host    = $diamond::graphite_host
   $graphite_port    = $diamond::graphite_port
