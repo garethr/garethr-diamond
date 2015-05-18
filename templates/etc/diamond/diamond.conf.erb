@@ -26,11 +26,11 @@ handlers = <%= Array(handlers).join(',') %>
 
 # User diamond will run as
 # Leave empty to use the current user
-user =
+user = <%= @diamond_user %>
 
 # Group diamond will run as
 # Leave empty to use the current group
-group =
+group = <%= @diamond_group %>
 
 # Pid file
 pid_file = /var/run/diamond.pid
