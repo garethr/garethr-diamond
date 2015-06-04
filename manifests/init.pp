@@ -57,6 +57,9 @@
 # [*purge_collectors*]
 #   Determine if we should purge collectors Puppet does not manage
 #
+# [*purge_handlers*]
+#   Determine if we should purge handlers Puppet does not manage
+#
 # [*install_from_pip*]
 #   Determine if we should install diamond from python-pip
 #
@@ -89,6 +92,7 @@ class diamond(
   $hostname_method   = undef,
   $handlers_path     = undef,
   $purge_collectors  = false,
+  $purge_handlers  = false,
   $install_from_pip  = false,
 ) {
   class{'diamond::install': } ->
