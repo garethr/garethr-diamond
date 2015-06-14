@@ -93,7 +93,7 @@ class diamond(
 ) {
   include systemd
 
-  case $osfamily {
+  case $::osfamily {
     'Archlinux': {
       $diamond_path = '/usr/bin/diamond'
       $collectors_path = '/usr/share/diamond/collectors/'
@@ -107,6 +107,11 @@ class diamond(
       $collectors_path = '/usr/local/share/diamond/collectors/'
     }
     'Solaris': {
+      $diamond_path = '/usr/bin/diamond'
+      $collectors_path = '/usr/share/diamond/collectors/'
+      $provider = undef
+    }
+    default: {
       $diamond_path = '/usr/bin/diamond'
       $collectors_path = '/usr/share/diamond/collectors/'
       $provider = undef
