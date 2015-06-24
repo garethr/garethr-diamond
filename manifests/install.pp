@@ -4,6 +4,7 @@
 # Also installed dependencies for collectors
 #
 class diamond::install {
+  $diamond_path = $diamond::diamond_path
 
   if $diamond::install_from_pip {
     case $::osfamily {
@@ -55,12 +56,21 @@ class diamond::install {
       group   => 'sys',
       require => [Package['diamond'],File['/lib/svc/method/diamond']],
     }
+  }
+
+  if $::systemd_available == 'true' {
+    file { "${::systemd::unit_path}/diamond.service":
+      content => template('diamond/diamond.service.erb'),
+      before  => Service['diamond'],
+      notify  => Exec['systemd-daemon-reload'],
+    }
   } else {
     file { '/etc/init.d/diamond':
       mode    => '0755',
       require => Package['diamond'],
     }
   }
+
   file { '/var/log/diamond':
     ensure => directory,
   }

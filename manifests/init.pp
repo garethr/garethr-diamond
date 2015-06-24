@@ -91,6 +91,33 @@ class diamond(
   $purge_collectors  = false,
   $install_from_pip  = false,
 ) {
+  include systemd
+
+  case $::osfamily {
+    'Archlinux': {
+      $diamond_path = '/usr/bin/diamond'
+      $collectors_path = '/usr/share/diamond/collectors/'
+    }
+    'RedHat': {
+      $diamond_path = '/usr/bin/diamond'
+      $collectors_path = '/usr/share/diamond/collectors/'
+    }
+    'Debian': {
+      $diamond_path = '/usr/local/bin/diamond'
+      $collectors_path = '/usr/local/share/diamond/collectors/'
+    }
+    'Solaris': {
+      $diamond_path = '/usr/bin/diamond'
+      $collectors_path = '/usr/share/diamond/collectors/'
+      $provider = undef
+    }
+    default: {
+      $diamond_path = '/usr/bin/diamond'
+      $collectors_path = '/usr/share/diamond/collectors/'
+      $provider = undef
+    }
+  }
+
   class{'diamond::install': } ->
   class{'diamond::config': } ~>
   class{'diamond::service': } ->

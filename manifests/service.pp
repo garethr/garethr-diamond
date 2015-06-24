@@ -12,8 +12,14 @@ class diamond::service {
     'Solaris' => '/lib/svc/manifest/network/diamond.xml',
     default   => undef,
   }
+  $provider = $::systemd_available ? {
+    'true'  => 'systemd',
+    default => undef,
+  }
+
   service { 'diamond':
     ensure     => $ensure,
+    provider   => $provider,
     name       => $service_name,
     enable     => $diamond::enable,
     hasstatus  => true,
