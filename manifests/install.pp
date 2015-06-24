@@ -62,6 +62,7 @@ class diamond::install {
     file { "${::systemd::unit_path}/diamond.service":
       content => template('diamond/diamond.service.erb'),
       before  => Service['diamond'],
+      notify  => Exec['systemd-daemon-reload'],
     }
   } else {
     file { '/etc/init.d/diamond':
