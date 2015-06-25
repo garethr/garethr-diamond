@@ -75,6 +75,23 @@ diamond::collector { 'RabbitMQCollector':
 }
 ```
 
+Some collectors support header section, for example the ProcessResources collector
+
+```puppet
+diamond::collector {'ProcessResourcesCollector':
+  options => {
+    'unit'         => 'B',
+    'cpu_interval' => '0.1',
+  },
+  header_section => '[process]',
+  sections => {
+    '[[diamond]]' => {
+      'selfmon' => 'True',
+    },
+  }
+}
+```
+
 Diamond supports a number of different handlers, for the moment this
 module supports only the Graphite, Librato and Riemann handers. Pull request
 happily accepted to add others.
