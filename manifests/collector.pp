@@ -11,7 +11,8 @@
 #   Each section can have its own options
 define diamond::collector (
   $options = undef,
-  $sections = undef
+  $header_section = undef,
+  $sections = undef,
 ) {
   include diamond
 

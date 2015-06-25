@@ -4,6 +4,11 @@ enabled=True
 <%= "#{k} = #{@options[k]}" %>
 <%   end
    end -%>
+
+<% if defined?(@header_section) -%>
+<%= @header_section %>
+<% end -%>
+
 <% if defined?(@sections)
      @sections.keys.each do |k| -%>
 
