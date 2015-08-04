@@ -191,7 +191,7 @@ describe 'diamond', :type => :class do
 
   context 'with enabling pip installation on Solaris' do
     let (:params) { {'install_from_pip' => true} }
-    let (:facts) { {:osfamily => 'Solaris', :operatingsystemrelease => '5.11'} }
+    let (:facts) { {:osfamily => 'Solaris', :kernelrelease => '5.11'} }
     it { should contain_package('solarisstudio-122').that_comes_before('Package[diamond]')}
     it { should contain_package('pip').that_comes_before('Package[diamond]')}
     it { should contain_package('diamond').with(
