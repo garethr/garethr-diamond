@@ -16,7 +16,7 @@ class diamond::install {
         ensure_resource('package', ['python-pip','python-configobj','gcc','python-dev'], {'ensure' => 'present', 'before' => Package['diamond']})
       }
       'Solaris': {
-        case $::operatingsystemrelease {
+        case $::kernelrelease {
           '5.11': {
             ensure_resource('package', ['pip','solarisstudio-122'], {'ensure' => 'present', 'before' => Package['diamond']})
             file { ['/ws', '/ws/on11update-tools', '/ws/on11update-tools/SUNWspro']: ensure => directory, }
