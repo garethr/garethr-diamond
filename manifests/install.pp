@@ -68,6 +68,14 @@ class diamond::install {
   package { 'diamond':
     ensure  => $diamond::version,
   }
+
+  if $::osfamily =~ /^(Debian|Ubuntu)$/ {
+    file { '/etc/init.d/diamond':
+      ensure  => link,
+      target  => '/lib/init/upstart-job',
+      require => Package['diamond'],
+    }
+  }
 }
 
   file { '/var/run/diamond':
