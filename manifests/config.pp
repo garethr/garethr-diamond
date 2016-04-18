@@ -23,6 +23,7 @@ class diamond::config {
   $hostname_method   = $diamond::hostname_method
   $handlers_path     = $diamond::handlers_path
   $rotate_days       = $diamond::rotate_days
+  $extra_handlers    = $diamond::extra_handlers
   file { '/etc/diamond/diamond.conf':
     ensure  => present,
     content => template('diamond/etc/diamond/diamond.conf.erb'),
