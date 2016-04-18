@@ -63,6 +63,9 @@
 # [*rotate_days*]
 #   Number of days of rotate logs to keep
 #
+# [*collectors*]
+#   Additional hash to create collectors
+#
 class diamond(
   $version           = 'present',
   $enable            = true,
@@ -90,9 +93,15 @@ class diamond(
   $handlers_path     = undef,
   $purge_collectors  = false,
   $install_from_pip  = false,
+  $collectors        = {},
 ) {
   class{'diamond::install': } ->
   class{'diamond::config': } ~>
-  class{'diamond::service': } ->
-  Class['diamond']
+  class{'diamond::service': }
+  
+  # manage collectors if present
+  validate_hash($collectors)
+  if $collectors {
+    create_resources('diamond::collector', $collectors)
+  }
 }
