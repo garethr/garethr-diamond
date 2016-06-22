@@ -9,23 +9,37 @@ class diamond::install {
     case $::osfamily {
       'RedHat': {
         include epel
-        ensure_resource('package', 'python-pip', {'ensure' => 'present', 'before' => Package['diamond'], 'require' => Yumrepo['epel']})
-        ensure_resource('package', ['python-configobj','gcc','python-devel'], {'ensure' => 'present', 'before' => Package['diamond'], 'require' => Package['python-pip']})
+        if $diamond::manage_pip {
+          ensure_resource('package', 'python-pip', {'ensure' => 'present', 'before' => Package['diamond'], 'require' => Yumrepo['epel']})
+        }
+        if $diamond::manage_build_deps {
+          ensure_resource('package', ['python-configobj','gcc','python-devel'], {'ensure' => 'present', 'before' => Package['diamond'], 'require' => Package['python-pip']})
+        }
       }
       /^(Debian|Ubuntu)$/: {
-        ensure_resource('package', ['python-pip','python-configobj','gcc','python-dev'], {'ensure' => 'present', 'before' => Package['diamond']})
+        if $diamond::manage_pip {
+          ensure_resource('package', 'python-pip', {'ensure' => 'present', 'before' => Package['diamond']})
+        }
+        if $diamond::manage_build_deps {
+          ensure_resource('package', ['python-configobj','gcc','python-dev'], {'ensure' => 'present', 'before' => Package['diamond']})
+        }
       }
       'Solaris': {
         case $::kernelrelease {
           '5.11': {
-            ensure_resource('package', ['pip','solarisstudio-122'], {'ensure' => 'present', 'before' => Package['diamond']})
-            file { ['/ws', '/ws/on11update-tools', '/ws/on11update-tools/SUNWspro']: ensure => directory, }
-            file { '/ws/on11update-tools/SUNWspro/sunstudio12.1':
-              ensure  => symlink,
-              force   => true,
-              target  => '/opt/solstudio12.2',
-              before  => Package['diamond'],
-              require => Package['solarisstudio-122'],
+            if $diamond::manage_pip {
+              ensure_resource('package', 'pip', {'ensure' => 'present', 'before' => Package['diamond']})
+            }
+            if $diamond::manage_build_deps {
+              ensure_resource('package', 'solarisstudio-122', {'ensure' => 'present', 'before' => Package['diamond']})
+              file { ['/ws', '/ws/on11update-tools', '/ws/on11update-tools/SUNWspro']: ensure => directory, }
+              file { '/ws/on11update-tools/SUNWspro/sunstudio12.1':
+                ensure  => symlink,
+                force   => true,
+                target  => '/opt/solstudio12.2',
+                before  => Package['diamond'],
+                require => Package['solarisstudio-122'],
+              }
             }
           }
           default: {
@@ -92,13 +106,16 @@ class diamond::install {
   }
 
   if $diamond::librato_user and $diamond::librato_apikey {
-    ensure_packages(['python-pip'])
+    if $diamond::manage_pip {
+      ensure_packages(['python-pip'])
+    }
     ensure_resource('package', 'librato-metrics', {'ensure' => 'present', 'provider' => pip, 'before' => Package['python-pip']})
   }
 
   if $diamond::riemann_host {
-    ensure_packages(['python-pip'])
+    if $diamond::manage_pip {
+      ensure_packages(['python-pip'])
+    }
     ensure_resource('package', 'bernhard', {'ensure' => 'present', 'provider' => pip, 'before' => Package['python-pip']})
   }
-
 }

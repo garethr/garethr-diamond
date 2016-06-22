@@ -90,6 +90,8 @@ class diamond(
   $handlers_path     = $diamond::params::handlers_path,
   $purge_collectors  = $diamond::params::purge_collectors,
   $install_from_pip  = $diamond::params::install_from_pip,
+  $manage_pip        = $diamond::params::manage_pip,
+  $manage_build_deps = $diamond::params::manage_build_deps,
 ) inherits diamond::params {
   class{'diamond::install': } ->
   class{'diamond::config': } ~>
