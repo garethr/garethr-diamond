@@ -54,6 +54,12 @@
 # [*handlers_path*]
 #   Define optional handlers_path for custom handlers
 #
+# [*collectors_path*]
+#   Define optional collectors_path for collectors path
+#
+# [*diamond_path*]
+#   Define optional diamond_path for absolute path to diamond command
+#
 # [*purge_collectors*]
 #   Determine if we should purge collectors Puppet does not manage
 #
@@ -88,9 +94,14 @@ class diamond(
   $server_hostname   = $diamond::params::server_hostname,
   $hostname_method   = $diamond::params::hostname_method,
   $handlers_path     = $diamond::params::handlers_path,
+  $collectors_path   = $diamond::params::collectors_path,
+  $diamond_path      = $diamond::params::diamond_path,
   $purge_collectors  = $diamond::params::purge_collectors,
   $install_from_pip  = $diamond::params::install_from_pip,
 ) inherits diamond::params {
+
+  include ::systemd
+
   class{'diamond::install': } ->
   class{'diamond::config': } ~>
   class{'diamond::service': } ->
