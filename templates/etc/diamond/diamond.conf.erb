@@ -33,7 +33,7 @@ group =
 pid_file = /var/run/diamond.pid
 
 # Directory to load collector modules from
-collectors_path = /usr/share/diamond/collectors/
+collectors_path = <%= @collectors_path %>
 
 # Directory to load collector configs from
 collectors_config_path = /etc/diamond/collectors/

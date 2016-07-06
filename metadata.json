@@ -31,6 +31,8 @@
       "operatingsystemrelease": [
         "5.11"
       ]
+    },{
+      "operatingsystem": "Archlinux"
     }
   ],
   "requirements": [
@@ -47,6 +49,10 @@
     {
       "name": "puppetlabs/stdlib",
       "version_requirement": ">= 4.2.0"
+    },
+    {
+      "name": "camptocamp/systemd",
+      "version_requirement": ">= 0.3.0"
     }
   ]
 }
