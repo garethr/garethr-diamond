@@ -29,4 +29,6 @@ class diamond::params {
   $handlers_path     = undef
   $purge_collectors  = false
   $install_from_pip  = false
+  $manage_pip        = true
+  $manage_build_deps = true
 }
