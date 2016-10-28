@@ -50,9 +50,9 @@ class diamond::install {
       }
       default: { fail('Unrecognized operating system') }
     }
-  package {'diamond':
-    ensure   => present,
-    provider => pip,
+  ::python::pip { 'diamond':
+    ensure => present,
+    proxy  => $diamond::pip_proxy,
   }
   if $::osfamily == 'Solaris' {
     # This should eventually go upstream

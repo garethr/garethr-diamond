@@ -34,7 +34,8 @@ define diamond::collector::install (
   }
 
   if $python_packages {
-    create_resources('python::pip', $python_packages, {
+    create_resources('::python::pip', $python_packages, {
+      proxy  => $diamond::pip_proxy,
       before => Vcsrepo["${title}-repo"],
     })
   }
