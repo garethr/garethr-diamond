@@ -11,34 +11,34 @@ class diamond::install {
       'RedHat': {
         include epel
         if $diamond::manage_pip {
-          ensure_resource('package', 'python-pip', {'ensure' => 'present', 'before' => Package['diamond'], 'require' => Yumrepo['epel']})
+          ensure_resource('package', 'python-pip', {'ensure' => 'present', 'before' => Python::Pip['diamond'], 'require' => Yumrepo['epel']})
         }
         if $diamond::manage_build_deps {
-          ensure_resource('package', ['python-configobj','gcc','python-devel'], {'ensure' => 'present', 'before' => Package['diamond'], 'require' => Package['python-pip']})
+          ensure_resource('package', ['python-configobj','gcc','python-devel'], {'ensure' => 'present', 'before' => Python::Pip['diamond'], 'require' => Package['python-pip']})
         }
       }
       /^(Debian|Ubuntu)$/: {
         if $diamond::manage_pip {
-          ensure_resource('package', 'python-pip', {'ensure' => 'present', 'before' => Package['diamond']})
+          ensure_resource('package', 'python-pip', {'ensure' => 'present', 'before' => Python::Pip['diamond']})
         }
         if $diamond::manage_build_deps {
-          ensure_resource('package', ['python-configobj','gcc','python-dev'], {'ensure' => 'present', 'before' => Package['diamond']})
+          ensure_resource('package', ['python-configobj','gcc','python-dev'], {'ensure' => 'present', 'before' => Python::Pip['diamond']})
         }
       }
       'Solaris': {
         case $::kernelrelease {
           '5.11': {
             if $diamond::manage_pip {
-              ensure_resource('package', 'pip', {'ensure' => 'present', 'before' => Package['diamond']})
+              ensure_resource('package', 'pip', {'ensure' => 'present', 'before' => Python::Pip['diamond']})
             }
             if $diamond::manage_build_deps {
-              ensure_resource('package', 'solarisstudio-122', {'ensure' => 'present', 'before' => Package['diamond']})
+              ensure_resource('package', 'solarisstudio-122', {'ensure' => 'present', 'before' => Python::Pip['diamond']})
               file { ['/ws', '/ws/on11update-tools', '/ws/on11update-tools/SUNWspro']: ensure => directory, }
               file { '/ws/on11update-tools/SUNWspro/sunstudio12.1':
                 ensure  => symlink,
                 force   => true,
                 target  => '/opt/solstudio12.2',
-                before  => Package['diamond'],
+                before  => Python::Pip['diamond'],
                 require => Package['solarisstudio-122'],
               }
             }
@@ -50,9 +50,9 @@ class diamond::install {
       }
       default: { fail('Unrecognized operating system') }
     }
-  package {'diamond':
-    ensure   => present,
-    provider => pip,
+  ::python::pip { 'diamond':
+    ensure => present,
+    proxy  => $diamond::pip_proxy,
   }
   if $::osfamily == 'Solaris' {
     # This should eventually go upstream
@@ -61,14 +61,14 @@ class diamond::install {
       mode    => '0755',
       owner   => 'root',
       group   => 'bin',
-      require => Package['diamond'],
+      require => Python::Pip['diamond'],
     }
     file { '/lib/svc/manifest/network/diamond.xml':
       source  => 'puppet:///modules/diamond/solaris/manifest/diamond.xml',
       mode    => '0444',
       owner   => 'root',
       group   => 'sys',
-      require => [Package['diamond'],File['/lib/svc/method/diamond']],
+      require => [Python::Pip['diamond'],File['/lib/svc/method/diamond']],
     }
   }
 
@@ -80,7 +80,7 @@ class diamond::install {
   } else {
     file { '/etc/init.d/diamond':
       mode    => '0755',
-      require => Package['diamond'],
+      require => Python::Pip['diamond'],
     }
   }
 

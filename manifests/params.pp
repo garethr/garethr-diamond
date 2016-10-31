@@ -31,6 +31,7 @@ class diamond::params {
   $install_from_pip  = false
   $manage_pip        = true
   $manage_build_deps = true
+  $pip_proxy         = undef
 
   case $::osfamily {
     'Archlinux': {

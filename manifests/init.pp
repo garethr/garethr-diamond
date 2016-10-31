@@ -100,6 +100,7 @@ class diamond(
   $install_from_pip  = $diamond::params::install_from_pip,
   $manage_pip        = $diamond::params::manage_pip,
   $manage_build_deps = $diamond::params::manage_build_deps,
+  $pip_proxy         = $diamond::params::pip_proxy,
 ) inherits diamond::params {
 
   include ::systemd
