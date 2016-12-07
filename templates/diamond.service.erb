@@ -1,0 +1,9 @@
+[Unit]
+Description=Diamond daemon
+After=network.target
+
+[Service]
+ExecStart=<%= @diamond_path %> --foreground
+
+[Install]
+WantedBy=multi-user.target

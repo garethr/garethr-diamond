@@ -54,6 +54,12 @@
 # [*handlers_path*]
 #   Define optional handlers_path for custom handlers
 #
+# [*collectors_path*]
+#   Define optional collectors_path for collectors path
+#
+# [*diamond_path*]
+#   Define optional diamond_path for absolute path to diamond command
+#
 # [*purge_collectors*]
 #   Determine if we should purge collectors Puppet does not manage
 #
@@ -64,33 +70,41 @@
 #   Number of days of rotate logs to keep
 #
 class diamond(
-  $version           = 'present',
-  $enable            = true,
-  $start             = true,
-  $interval          = 30,
-  $librato_user      = false,
-  $librato_apikey    = false,
-  $graphite_host     = false,
-  $graphite_handler  = 'graphite.GraphiteHandler',
-  $graphite_port     = '2003',
-  $graphite_protocol = 'TCP',
-  $pickle_port       = '2004',
-  $riemann_host      = false,
-  $stats_host        = '127.0.0.1',
-  $stats_port        = 8125,
-  $path_prefix       = undef,
-  $path_suffix       = undef,
-  $instance_prefix   = undef,
-  $logger_level      = 'WARNING',
-  $rotate_level      = 'WARNING',
-  $rotate_days       = 7,
-  $extra_handlers    = [],
-  $server_hostname   = undef,
-  $hostname_method   = undef,
-  $handlers_path     = undef,
-  $purge_collectors  = false,
-  $install_from_pip  = false,
-) {
+  $version           = $diamond::params::version,
+  $enable            = $diamond::params::enable,
+  $start             = $diamond::params::start,
+  $interval          = $diamond::params::interval,
+  $librato_user      = $diamond::params::librato_user,
+  $librato_apikey    = $diamond::params::librato_apikey,
+  $graphite_host     = $diamond::params::graphite_host,
+  $graphite_handler  = $diamond::params::graphite_handler,
+  $graphite_port     = $diamond::params::graphite_port,
+  $graphite_protocol = $diamond::params::graphite_protocol,
+  $pickle_port       = $diamond::params::pickle_port,
+  $riemann_host      = $diamond::params::riemann_host,
+  $stats_host        = $diamond::params::stats_host,
+  $stats_port        = $diamond::params::stats_port,
+  $path_prefix       = $diamond::params::path_prefix,
+  $path_suffix       = $diamond::params::path_suffix,
+  $instance_prefix   = $diamond::params::instance_prefix,
+  $logger_level      = $diamond::params::logger_level,
+  $rotate_level      = $diamond::params::rotate_level,
+  $rotate_days       = $diamond::params::rotate_days,
+  $extra_handlers    = $diamond::params::extra_handlers,
+  $server_hostname   = $diamond::params::server_hostname,
+  $hostname_method   = $diamond::params::hostname_method,
+  $handlers_path     = $diamond::params::handlers_path,
+  $collectors_path   = $diamond::params::collectors_path,
+  $diamond_path      = $diamond::params::diamond_path,
+  $purge_collectors  = $diamond::params::purge_collectors,
+  $install_from_pip  = $diamond::params::install_from_pip,
+  $manage_pip        = $diamond::params::manage_pip,
+  $manage_build_deps = $diamond::params::manage_build_deps,
+  $pip_proxy         = $diamond::params::pip_proxy,
+) inherits diamond::params {
+
+  include ::systemd
+
   class{'diamond::install': } ->
   class{'diamond::config': } ~>
   class{'diamond::service': } ->

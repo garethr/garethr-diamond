@@ -157,9 +157,22 @@ describe 'diamond', :type => :class do
     it { should contain_file('/var/log/diamond')}
   end
 
+  context 'with enabling pip installation on RedHat with systemd' do
+    let (:params) { {'install_from_pip' => true} }
+    let (:facts) { {
+      :osfamily => 'RedHat',
+      :systemd => true,
+    } }
+    # All other checks should be the exact same as without systemd
+    it { should contain_file('/etc/systemd/system/diamond.service')}
+  end
+
   context 'with enabling pip installation on Debian' do
     let (:params) { {'install_from_pip' => true} }
-    let (:facts) { {:osfamily => 'Debian'} }
+    let (:facts) { {
+      :osfamily => 'Debian',
+      :operatingsystem => 'Debian',
+    } }
     it { should contain_package('python-pip').that_comes_before('Package[diamond]')}
     it { should contain_package('python-configobj').that_comes_before('Package[diamond]')}
     it { should contain_package('gcc').that_comes_before('Package[diamond]')}
@@ -173,9 +186,23 @@ describe 'diamond', :type => :class do
     it { should contain_file('/var/log/diamond')}
   end
 
+  context 'with enabling pip installation on Debian with systemd' do
+    let (:params) { {'install_from_pip' => true} }
+    let (:facts) { {
+      :osfamily => 'Debian',
+      :operatingsystem => 'Debian',
+      :systemd => true,
+    } }
+    # All other checks should be the exact same as without systemd
+    it { should contain_file('/etc/systemd/system/diamond.service')}
+  end
+
   context 'with enabling pip installation on Ubuntu' do
     let (:params) { {'install_from_pip' => true} }
-    let (:facts) { {:osfamily => 'Ubuntu'} }
+    let (:facts) { {
+      :osfamily => 'Debian',
+      :operatingsystem => 'Ubuntu',
+    } }
     it { should contain_package('python-pip').that_comes_before('Package[diamond]')}
     it { should contain_package('python-configobj').that_comes_before('Package[diamond]')}
     it { should contain_package('gcc').that_comes_before('Package[diamond]')}
@@ -187,6 +214,17 @@ describe 'diamond', :type => :class do
     }
     it { should contain_file('/etc/init.d/diamond')}
     it { should contain_file('/var/log/diamond')}
+  end
+
+  context 'with enabling pip installation on Ubuntu with systemd' do
+    let (:params) { {'install_from_pip' => true} }
+    let (:facts) { {
+      :osfamily => 'Debian',
+      :operatingsystem => 'Ubuntu',
+      :systemd => true,
+    } }
+    # All other checks should be the exact same as without systemd
+    it { should contain_file('/etc/systemd/system/diamond.service')}
   end
 
   context 'with enabling pip installation on Solaris' do
