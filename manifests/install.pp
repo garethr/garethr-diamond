@@ -56,9 +56,21 @@ class diamond::install {
       require => [Package['diamond'],File['/lib/svc/method/diamond']],
     }
   } else {
-    file { '/etc/init.d/diamond':
-      mode    => '0755',
-      require => Package['diamond'],
+    if $provider == 'upstart' {
+        file {
+            '/etc/init/diamond.conf':
+                owner   => 'root',
+                group   => 'root',
+                mode    => '0644',
+                source  => 'puppet:///modules/diamond/debain/upstart/diamond.conf';
+            '/etc/init.d/diamond':
+                target  => '/lib/init/upstart-job';
+        }
+    } else {
+        file { '/etc/init.d/diamond':
+            mode    => '0755',
+            require => Package['diamond'],
+        }
     }
   }
   file { '/var/log/diamond':
