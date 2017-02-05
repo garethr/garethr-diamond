@@ -62,7 +62,7 @@ class diamond::install {
                 owner   => 'root',
                 group   => 'root',
                 mode    => '0644',
-                source  => 'puppet:///modules/diamond/debain/upstart/diamond.conf';
+                source  => 'puppet:///modules/diamond/debian/upstart/diamond.conf';
             '/etc/init.d/diamond':
                 target  => '/lib/init/upstart-job';
         }
