@@ -106,7 +106,7 @@ class diamond(
   $handlers_path      = undef,
   $purge_collectors   = false,
   $install_from_pip   = false,
-  $collector_paths    = ['/usr/share/diamond/collectors','/usr/local/share/diamond/collectors'],
+  $collector_paths    = ['/usr/local/share/diamond/collectors','/usr/share/diamond/collectors'],
   $collector_defaults = undef,
   $service_provider   = undef,
   $user               = 'diamond',
