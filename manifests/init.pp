@@ -63,6 +63,9 @@
 # [*rotate_days*]
 #   Number of days of rotate logs to keep
 #
+# [*collector_paths*]
+#   Paths to load collectors from
+#
 # [*collector_defaults*]
 #   Any arbitrary collector defaults you want to add to the
 #   main configuration file, such as enabled = False.
@@ -94,6 +97,7 @@ class diamond(
   $handlers_path      = undef,
   $purge_collectors   = false,
   $install_from_pip   = false,
+  $collector_paths    = ['/usr/share/diamond/collectors'],
   $collector_defaults = undef,
 ) {
   class{'diamond::install': } ->
