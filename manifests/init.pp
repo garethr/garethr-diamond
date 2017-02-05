@@ -102,7 +102,7 @@ class diamond(
   $install_from_pip   = false,
   $collector_paths    = ['/usr/share/diamond/collectors'],
   $collector_defaults = undef,
-  $service_provider   = 'upstart',
+  $service_provider   = undef,
 ) {
   class{'diamond::install': } ->
   class{'diamond::config': } ~>
