@@ -28,6 +28,8 @@ class diamond::config {
   $user               = $diamond::user
   file { '/etc/diamond/diamond.conf':
     ensure  => present,
+    owner   => $::diamond::user,
+    mode    => '0444',
     content => template('diamond/etc/diamond/diamond.conf.erb'),
   }
 }
