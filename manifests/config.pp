@@ -25,6 +25,7 @@ class diamond::config {
   $rotate_days        = $diamond::rotate_days
   $collector_paths    = $diamond::collector_paths
   $collector_defaults = $diamond::collector_defaults
+  $user               = $diamond::user
   file { '/etc/diamond/diamond.conf':
     ensure  => present,
     content => template('diamond/etc/diamond/diamond.conf.erb'),

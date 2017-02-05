@@ -18,7 +18,7 @@ script
     else
         ENABLE_DIAMOND="yes"
         DIAMOND_PID="/var/run/diamond.pid"
-        DIAMOND_USER="diamond"
+        DIAMOND_USER="<%= scope.lookupvar('diamond::user') %>"
     fi
     PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
     DAEMON=`which diamond`

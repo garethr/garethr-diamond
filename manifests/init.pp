@@ -73,6 +73,12 @@
 # [*service_provider*]
 #   System service provider
 #
+# [*user*]
+#   User to run as.
+#
+# [*manage_user*]
+#   Whether or not to manage the run-as user.
+#
 class diamond(
   $version            = 'present',
   $enable             = true,
@@ -103,7 +109,10 @@ class diamond(
   $collector_paths    = ['/usr/share/diamond/collectors'],
   $collector_defaults = undef,
   $service_provider   = undef,
+  $user               = 'diamond',
+  $manage_user        = true,
 ) {
+  class{'diamond::user': } ->
   class{'diamond::install': } ->
   class{'diamond::config': } ~>
   class{'diamond::service': } ->
