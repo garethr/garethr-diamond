@@ -4,7 +4,6 @@
 #
 class diamond::service {
   $ensure   = $::diamond::start ? {true => running, default => stopped}
-  $provider = $::diamond::service_provider
   $service_name   = $::osfamily ? {
     'Solaris' => 'network/diamond',
     default   => 'diamond',
@@ -20,7 +19,7 @@ class diamond::service {
     hasstatus  => true,
     hasrestart => true,
     manifest   => $manifest,
-    provider   => $provider,
+    provider   => $::diamond::service_provider,
   }
 }
 

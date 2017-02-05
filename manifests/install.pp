@@ -56,7 +56,7 @@ class diamond::install {
       require => [Package['diamond'],File['/lib/svc/method/diamond']],
     }
   } else {
-    if $provider == 'upstart' {
+    if $::diamond::service_provider == 'upstart' {
         file {
             '/etc/init/diamond.conf':
                 owner   => 'root',
