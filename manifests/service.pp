@@ -13,6 +13,17 @@ class diamond::service {
     'Solaris' => '/lib/svc/manifest/network/diamond.xml',
     default   => undef,
   }
+  if $provider == 'upstart' {
+    file {
+        '/etc/init/diamond.conf':
+            owner   => 'root',
+            group   => 'root',
+            mode    => '0644',
+            source  => 'puppet:///modules/diamond/debain/upstart/diamond.conf';
+        '/etc/init.d/diamond':
+            target  => '/lib/init/upstart-job';
+    }
+  }
   service { 'diamond':
     ensure     => $ensure,
     name       => $service_name,
