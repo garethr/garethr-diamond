@@ -101,7 +101,7 @@ class diamond::install {
   }
 
   $::diamond::collector_paths.each |$path| {
-    ensure_resource('file', $path, { 'ensure' => directory })
+    ensure_resource('exec', "create $path", { 'command' => "mkdir -p ${path}", 'creates' => $path })
   }
 
   if $diamond::librato_user and $diamond::librato_apikey {
