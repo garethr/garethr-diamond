@@ -19,8 +19,10 @@ class diamond::service {
             owner   => 'root',
             group   => 'root',
             mode    => '0644',
+            before  => Service['diamond'],
             source  => 'puppet:///modules/diamond/debain/upstart/diamond.conf';
         '/etc/init.d/diamond':
+            before  => Service['diamond'],
             target  => '/lib/init/upstart-job';
     }
   }
