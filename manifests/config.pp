@@ -23,6 +23,7 @@ class diamond::config {
   $hostname_method    = $diamond::hostname_method
   $handlers_path      = $diamond::handlers_path
   $rotate_days        = $diamond::rotate_days
+  $collector_paths    = $diamond::collector_paths
   $collector_defaults = $diamond::collector_defaults
   file { '/etc/diamond/diamond.conf':
     ensure  => present,
