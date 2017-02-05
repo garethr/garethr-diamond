@@ -70,6 +70,9 @@
 #   Any arbitrary collector defaults you want to add to the
 #   main configuration file, such as enabled = False.
 #
+# [*service_provider*]
+#   System service provider
+#
 class diamond(
   $version            = 'present',
   $enable             = true,
@@ -99,6 +102,7 @@ class diamond(
   $install_from_pip   = false,
   $collector_paths    = ['/usr/share/diamond/collectors'],
   $collector_defaults = undef,
+  $service_provider   = 'upstart',
 ) {
   class{'diamond::install': } ->
   class{'diamond::config': } ~>
