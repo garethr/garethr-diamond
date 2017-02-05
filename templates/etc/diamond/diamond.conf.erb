@@ -188,6 +188,12 @@ instance_prefix = <%= @instance_prefix %>
 # Default Poll Interval (seconds)
 interval = <%= @interval %>
 
+<% if @collector_defaults -%>
+<% @collector_defaults.sort.each do |key, value| -%>
+<%= key %> = <%= value %>
+<% end -%>
+<% end -%>
+
 ################################################################################
 ### Options for logging
 # for more information on file format syntax:

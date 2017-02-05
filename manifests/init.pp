@@ -63,6 +63,10 @@
 # [*rotate_days*]
 #   Number of days of rotate logs to keep
 #
+# [*collector_defaults*]
+#   Any arbitrary collector defaults you want to add to the
+#   main configuration file, such as enabled = False.
+#
 class diamond(
   $version           = 'present',
   $enable            = true,
