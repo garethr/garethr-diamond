@@ -70,10 +70,6 @@ class diamond::install {
   }
 }
 
-  file { '/var/run/diamond':
-    ensure => directory,
-  }
-
   file { '/etc/diamond':
     ensure => directory,
     owner  => root,
