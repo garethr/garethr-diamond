@@ -33,7 +33,7 @@ group =
 pid_file = /var/run/diamond.pid
 
 # Directory to load collector modules from
-collectors_path = <%= Array(collectors_paths).join(',') %>
+collectors_path = <%= Array(collector_paths).join(',') %>
 
 # Directory to load collector configs from
 collectors_config_path = /etc/diamond/collectors/
