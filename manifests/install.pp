@@ -100,6 +100,10 @@ class diamond::install {
     require => File['/etc/diamond'],
   }
 
+  $::diamond::collector_paths.each |$path| {
+    ensure_resource('file', $path, { 'ensure' => directory })
+  }
+
   if $diamond::librato_user and $diamond::librato_apikey {
     ensure_packages(['python-pip'])
     ensure_resource('package', 'librato-metrics', {'ensure' => 'present', 'provider' => pip, 'before' => Package['python-pip']})
