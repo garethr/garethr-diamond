@@ -82,7 +82,7 @@ proto = <%= @graphite_protocol %>
 timeout = 15
 
 # Batch size for metrics
-batch = 1
+batch = <%= @batch_size %>
 
 [[GraphitePickleHandler]]
 ### Options for GraphitePickleHandler

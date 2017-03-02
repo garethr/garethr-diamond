@@ -79,6 +79,9 @@
 # [*manage_user*]
 #   Whether or not to manage the run-as user.
 #
+# [*batch_size*]
+#   Batch size for submission.
+#
 class diamond(
   $version            = 'present',
   $enable             = true,
@@ -111,6 +114,7 @@ class diamond(
   $service_provider   = undef,
   $user               = 'diamond',
   $manage_user        = true,
+  $batch_size         = '1',
 ) {
   class{'diamond::user': } ->
   class{'diamond::install': } ->
