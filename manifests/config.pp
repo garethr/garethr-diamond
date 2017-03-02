@@ -26,6 +26,7 @@ class diamond::config {
   $collector_paths    = $diamond::collector_paths
   $collector_defaults = $diamond::collector_defaults
   $user               = $diamond::user
+  $batch_size         = $diamond::batch_size
   file { '/etc/diamond/diamond.conf':
     ensure  => present,
     owner   => $::diamond::user,
