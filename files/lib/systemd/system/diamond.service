@@ -1,0 +1,16 @@
+[Unit]
+Description=diamond - A system statistics collector for graphite
+
+[Service]
+ExecStart=/usr/bin/python /usr/local/bin/diamond
+ExecStartPre=/bin/systemd-tmpfiles --create --remove /etc/tmpfiles.d/diamond.conf
+Restart=on-failure
+User=diamond
+Environment=PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+EnvironmentFile=-/etc/default/diamond
+Type=forking
+#If not using default pid, make sure you change PIDFile setting
+PIDFile=/var/run/diamond.pid
+
+[Install]
+WantedBy=multi-user.target
