@@ -71,7 +71,7 @@ class diamond::install {
             '/etc/tmpfiles.d/diamond.conf':
                 owner   => 'root',
                 group   => 'root',
-                mode    => '0444'
+                mode    => '0444',
                 source  => 'puppet:///modules/diamond/etc/tmpfiles.d/diamond.conf';
             '/lib/systemd/system/diamond.service':
                 owner   => 'root',
