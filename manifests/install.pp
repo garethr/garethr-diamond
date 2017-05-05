@@ -66,7 +66,7 @@ class diamond::install {
             '/etc/init.d/diamond':
                 target  => '/lib/init/upstart-job';
         }
-    } else if $$:diamond::service_provder == 'systemd' {
+    } elsif $$:diamond::service_provder == 'systemd' {
         file {
             '/etc/tmpfiles.d/diamond.conf':
                 owner   => 'root',
