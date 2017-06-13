@@ -2,6 +2,7 @@
 Description=diamond - A system statistics collector for graphite
 
 [Service]
+PermissionsStartOnly=true
 ExecStart=/usr/bin/python /usr/local/bin/diamond
 ExecStartPre=/bin/systemd-tmpfiles --create --remove /etc/tmpfiles.d/diamond.conf
 Restart=on-failure
