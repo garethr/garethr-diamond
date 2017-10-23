@@ -91,8 +91,11 @@ class diamond(
   $purge_collectors  = false,
   $install_from_pip  = false,
 ) {
-  class{'diamond::install': } ->
-  class{'diamond::config': } ~>
-  class{'diamond::service': } ->
-  Class['diamond']
+  contain ::diamond::install
+  contain ::diamond::config
+  contain ::diamond::service
+
+  Class['::diamond::install']
+  -> Class['::diamond::config']
+  ~> Class['::diamond::service']
 }
