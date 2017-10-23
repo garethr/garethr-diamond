@@ -9,7 +9,11 @@ class diamond::install {
     case $::osfamily {
       'RedHat': {
         include epel
-        ensure_resource('package', 'python-pip', {'ensure' => 'present', 'before' => Package['diamond'], 'require' => Yumrepo['epel']})
+        $pip_package = $::operatingsystemmajrelease ? {
+          '7'     => 'python2-pip',
+          default =>  'python-pip',
+        }
+        ensure_resource('package', $pip_package, {'ensure' => 'present', 'before' => Package['diamond'], 'require' => Yumrepo['epel']})
         ensure_resource('package', ['python-configobj','gcc','python-devel'], {'ensure' => 'present', 'before' => Package['diamond'], 'require' => Package['python-pip']})
       }
       /^(Debian|Ubuntu)$/: {
