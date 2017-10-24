@@ -84,6 +84,11 @@ timeout = 15
 # Batch size for metrics
 batch = 1
 
+<% if @graphite_reconnect_interval %>
+# Tell Diamond to reconnect every n seconds
+reconnect_interval = <%= @graphite_reconnect_interval %>
+<% end -%>
+
 [[GraphitePickleHandler]]
 ### Options for GraphitePickleHandler
 
@@ -98,6 +103,11 @@ timeout = 15
 
 # Batch size for pickled metrics
 batch = 256
+
+<% if @graphite_reconnect_interval %>
+# Tell Diamond to reconnect every n seconds
+reconnect_interval = <%= @graphite_reconnect_interval %>
+<% end -%>
 
 [[MySQLHandler]]
 ### Options for MySQLHandler
