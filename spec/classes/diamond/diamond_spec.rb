@@ -11,6 +11,7 @@ describe 'diamond', :type => :class do
     it { should contain_file('/etc/diamond/diamond.conf').with_content(/interval = 30/)}
 
     it { should contain_file('/etc/diamond/collectors').with('purge' => 'false')}
+    it { should contain_file('/etc/diamond/handlers').with('purge' => 'false')}
 
     it { should_not contain_package('python-pip')}
     it { should_not contain_package('librato-metrics')}
@@ -138,6 +139,16 @@ describe 'diamond', :type => :class do
   context 'with not purging collectors' do
     let (:params) { {'purge_collectors' => false} }
     it { should contain_file('/etc/diamond/collectors').with('purge' => 'false')}
+  end
+
+  context 'with purging handlers' do
+    let (:params) { {'purge_handlers' => true} }
+    it { should contain_file('/etc/diamond/handlers').with('purge' => 'true')}
+  end
+
+  context 'with not purging handlers' do
+    let (:params) { {'purge_handlers' => false} }
+    it { should contain_file('/etc/diamond/handlers').with('purge' => 'false')}
   end
 
   context 'with enabling pip installation on RedHat' do
