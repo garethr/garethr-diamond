@@ -14,7 +14,7 @@ class diamond::install {
           default =>  'python-pip',
         }
         ensure_resource('package', $pip_package, {'ensure' => 'present', 'before' => Package['diamond'], 'require' => Yumrepo['epel']})
-        ensure_resource('package', ['python-configobj','gcc','python-devel'], {'ensure' => 'present', 'before' => Package['diamond'], 'require' => Package['python-pip']})
+        ensure_resource('package', ['python-configobj','gcc','python-devel'], {'ensure' => 'present', 'before' => Package['diamond'], 'require' => Package[$pip_package]})
       }
       /^(Debian|Ubuntu)$/: {
         ensure_resource('package', ['python-pip','python-configobj','gcc','python-dev'], {'ensure' => 'present', 'before' => Package['diamond']})
