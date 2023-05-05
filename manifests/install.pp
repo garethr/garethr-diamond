@@ -13,7 +13,7 @@ class diamond::install {
         ensure_resource('package', ['python-configobj','gcc','python-devel'], {'ensure' => 'present', 'before' => Package['diamond'], 'require' => Package['python-pip']})
       }
       /^(Debian|Ubuntu)$/: {
-        ensure_resource('package', ['python-pip','python-configobj','gcc','python-dev'], {'ensure' => 'present', 'before' => Package['diamond']})
+        ensure_resource('package', ['python-pip','python-configobj','gcc','python-dev'], {'ensure' => 'present'})
       }
       'Solaris': {
         case $::kernelrelease {
